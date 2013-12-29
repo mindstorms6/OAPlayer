@@ -1,0 +1,48 @@
+package open_audio;
+
+option java_package = "org.bdawg.open_audio";
+option java_outer_classname = "OpenAudioProtos";
+
+message ClientCommand {
+	enum ClientAction{
+		PLAY=0;
+		PAUSE=1;
+		STOP=2;
+		VOLUME=3;
+		DOWNLOAD=4;
+	}
+	optional ClientAction client_action = 1;
+	optional int32 new_volume = 2;
+	optional int64 timestamp = 3;
+	optional PlayItem item=4;	
+}
+
+message PlayItem{
+	enum PlayItemType{
+		BYTES=0;
+		INET_URI=1;
+		TORRENT=2;
+	}
+	optional bytes item_bytes = 1;
+	optional string item_id = 2;
+	optional string item_uri = 3;
+	optional bytes torrent_bytes = 4;
+	optional PlayItemType play_type = 5;
+}
+
+
+message ElectionMessage{
+	enum ElectionMessageType{
+		OFFER = 0;
+		MASTER_HB = 1;
+		NOTIFY_ELECTION = 2;
+		CLIENT_HB = 3;
+		ELECT_END = 4;
+		ELECT_CONFLICT = 5;
+	}
+	optional string node_id = 1;
+	optional int32 offer = 2;
+	optional int64 timestamp = 3;
+	optional ElectionMessageType type = 4;
+}
+
