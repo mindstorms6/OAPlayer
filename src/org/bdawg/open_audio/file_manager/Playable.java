@@ -1,4 +1,4 @@
-package org.bdawg.open_aduio.file_manager;
+package org.bdawg.open_audio.file_manager;
 
 import java.io.File;
 import java.io.FileOutputStream;
