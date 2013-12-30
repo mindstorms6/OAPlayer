@@ -1,5 +1,3 @@
-package org.bdawg.open_audio.sntp;
-
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -16,12 +14,16 @@ package org.bdawg.open_audio.sntp;
  * limitations under the License.
  */
 
+package org.bdawg.open_audio.sntp;
+
+
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
-import org.apache.log4j.Logger;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * {@hide}
@@ -37,7 +39,9 @@ import org.apache.log4j.Logger;
  */
 public class SntpClient
 {
+    private static final String TAG = "SntpClient";
 
+    private static final int REFERENCE_TIME_OFFSET = 16;
     private static final int ORIGINATE_TIME_OFFSET = 24;
     private static final int RECEIVE_TIME_OFFSET = 32;
     private static final int TRANSMIT_TIME_OFFSET = 40;
@@ -47,9 +51,7 @@ public class SntpClient
     private static final int NTP_MODE_CLIENT = 3;
     private static final int NTP_VERSION = 3;
     
-    private long lastOffset;
-    
-    private static Logger logger = Logger.getLogger(SntpClient.class);
+    static final Logger log = LoggerFactory.getLogger(SntpClient.class);
 
     // Number of seconds between Jan 1, 1900 and Jan 1, 1970
     // 70 years plus 17 leap days
@@ -88,7 +90,6 @@ public class SntpClient
             // get current time and write it to the request packet
             long requestTime = System.currentTimeMillis();
             long requestTicks = System.nanoTime();
-            
             writeTimeStamp(buffer, TRANSMIT_TIME_OFFSET, requestTime);
 
             socket.send(request);
@@ -121,9 +122,8 @@ public class SntpClient
             mNtpTime = responseTime + clockOffset;
             mNtpTimeReference = responseTicks;
             mRoundTripTime = roundTripTime;
-            lastOffset=clockOffset;
         } catch (Exception e) {
-        	logger.warn("request time failed! ", e);
+            if (false) log.debug("request time failed: " + e);
             return false;
         } finally {
             if (socket != null) {
@@ -132,11 +132,6 @@ public class SntpClient
         }
 
         return true;
-    }
-    
-    
-    public long getLastOffset(){
-    	return this.lastOffset;
     }
 
     /**

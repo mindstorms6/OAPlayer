@@ -1,6 +1,7 @@
 package org.bdawg.open_audio.vlc;
 
-import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.io.File;
 
 import javax.swing.JFrame;
 
@@ -217,20 +218,26 @@ public class VLCManager implements IPlayer{
 		
 		Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
         frame = new JFrame("OpenAudio");
+        frame.setUndecorated(true);
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
 
         frame.setContentPane(mediaPlayerComponent);
 
-        frame.setLocation(0, 0);
-        Dimension d = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setSize(d.width, d.height);
+        Rectangle bounds = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().getBounds();
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(frame);
+        frame.setBounds(bounds);
+        frame.setAlwaysOnTop(true);
         frame.setVisible(true);
 
 
         mediaPlayerComponent.getMediaPlayer().setFullScreen(true);
 
         mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(listener);
+        
+        
 	}
 	
 	@Override
@@ -255,26 +262,201 @@ public class VLCManager implements IPlayer{
 	}
 
 	@Override
-	public void play(long ntpTime, IPlayItem toPlay) {
+	public void play(final long ntpTime, IPlayItem toPlay) {
 		currentItem = toPlay;
-		if (ntpTime <= TimeManager.getTMInstance().getCurrentTimeMillis())
-		{
-			log.warn("Shit, we're late! Compensating by skipping!");
-			//compensate...
-			mediaPlayerComponent.getMediaPlayer().playMedia(toPlay.getFile().getAbsolutePath());
-			mediaPlayerComponent.getMediaPlayer().skip(TimeManager.getTMInstance().getCurrentTimeMillis() - ntpTime);		
-		} else {
-			log.debug("We're early, watiting for a bit...");
-			try {
-				Thread.sleep(Math.abs(TimeManager.getTMInstance().getCurrentTimeMillis() - ntpTime));
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				mediaPlayerComponent.getMediaPlayer().playMedia(toPlay.getFile().getAbsolutePath());		
+		File playFile = toPlay.getFile();
+		MediaPlayerEventListener timerFixer = new MediaPlayerEventListener() {
+			
+			@Override
+			public void videoOutput(MediaPlayer mediaPlayer, int newCount) {
+				// TODO Auto-generated method stub
+				
 			}
 			
-		}
+			@Override
+			public void titleChanged(MediaPlayer mediaPlayer, int newTitle) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void subItemPlayed(MediaPlayer mediaPlayer, int subItemIndex) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void subItemFinished(MediaPlayer mediaPlayer, int subItemIndex) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void stopped(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void snapshotTaken(MediaPlayer mediaPlayer, String filename) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void seekableChanged(MediaPlayer mediaPlayer, int newSeekable) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void positionChanged(MediaPlayer mediaPlayer, float newPosition) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void playing(MediaPlayer mediaPlayer) {
+				long diff = TimeManager.getTMInstance().getCurrentTimeMillis() - ntpTime;
+				if (diff > 0){
+					//behind, skip ahead
+					log.debug("Behind by " + diff);
+					mediaPlayer.skip(diff);
+				} else if (diff < 0){
+					//early, wait
+					mediaPlayer.pause();
+					try {
+						Thread.sleep(diff*-1);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} finally {
+						mediaPlayer.pause();
+					}
+					
+				}
+				mediaPlayer.removeMediaPlayerEventListener(this);
+
+			}
+			
+			@Override
+			public void paused(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void pausableChanged(MediaPlayer mediaPlayer, int newPausable) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void opening(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void newMedia(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mediaSubItemAdded(MediaPlayer mediaPlayer,
+					libvlc_media_t subItem) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mediaStateChanged(MediaPlayer mediaPlayer, int newState) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mediaParsedChanged(MediaPlayer mediaPlayer, int newStatus) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mediaMetaChanged(MediaPlayer mediaPlayer, int metaType) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mediaFreed(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mediaDurationChanged(MediaPlayer mediaPlayer, long newDuration) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mediaChanged(MediaPlayer mediaPlayer, libvlc_media_t media,
+					String mrl) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void lengthChanged(MediaPlayer mediaPlayer, long newLength) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void forward(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void finished(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void error(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void endOfSubItems(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void buffering(MediaPlayer mediaPlayer, float newCache) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void backward(MediaPlayer mediaPlayer) {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(timerFixer);
+		mediaPlayerComponent.getMediaPlayer().playMedia(playFile.getAbsolutePath());
 	}
 
 	@Override

@@ -1,14 +1,12 @@
 package org.bdawg.open_audio;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.BasicConfigurator;
-import org.bdawg.open_audio.election.ElectionManager;
 import org.bdawg.open_audio.http_utils.HttpUtils;
 import org.bdawg.open_audio.interfaces.ISender;
 import org.bdawg.open_audio.mqtt.MQTTManager;
@@ -19,6 +17,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.simpleframework.http.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,6 +56,10 @@ public class Runner {
 			limit.acquire();
 			HttpResponse resp = HttpUtils.executeGet(URI);
 			lastStatus = resp.getStatusLine().getStatusCode();
+			if (lastStatus == Status.NOT_FOUND.getCode()){
+				logger.warn("The server says our client ID wasn't found. Waiting an additional timeout.");
+				limit.acquire(10);
+			}
 			respEntity = resp.getEntity();
 		} while (lastStatus < 200 || lastStatus > 299);
 		logger.debug("Got Group!");
@@ -64,31 +67,18 @@ public class Runner {
 		logger.debug(value);
 		WebClientAssociation assoc = om.readValue(value,
 				WebClientAssociation.class);
-		
+
 		VLCManager vlcMgr = new VLCManager();
 
 		final String baseTopic = "/home/breland/pi_audio/";
-		final String groupName = assoc.getGroupId() + "/";
-		final String electionTopic = "election";
-		final String fullElectionTopic = baseTopic + groupName + electionTopic;
 		final String clientTopic = baseTopic + myMacAddress;
 		
 		logger.debug("Starting NTP");
 		// Start the NTP manager
-		TimeManager.getTMInstance();
+		TimeManager.getTMInstance().updateNow();
 		logger.debug("Starting MQTT");
 		// Start the MQTT manager
 		MQTTManager.getMQInstance();
-		logger.debug("Starting ElectionMGR");
-		final ElectionManager em = new ElectionManager(new ISender() {
-			@Override
-			public void sendToPeers(ByteBuffer bb) {
-				MQTTManager.getMQInstance().sendMessage(bb, fullElectionTopic);
-			}
-		});
-		logger.debug("Subscribing to Election Topic");
-		MQTTManager.getMQInstance().subscribe(fullElectionTopic, em);
-		em.init();
 		
 		logger.debug("Starting slave manager");
 		final SlaveManager sm = new SlaveManager(vlcMgr, new ISender(){
@@ -103,6 +93,23 @@ public class Runner {
 		sm.init();
 		
 		logger.debug("Startup completed.");
+		
+		Thread sleepers = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while (true) {
+					try {
+						Thread.sleep(Long.MAX_VALUE);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+		});
+		sleepers.start();
 		
 		try {
 			Thread.currentThread().join();
