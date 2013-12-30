@@ -68,7 +68,15 @@ public class Runner {
 		WebClientAssociation assoc = om.readValue(value,
 				WebClientAssociation.class);
 
-		VLCManager vlcMgr = new VLCManager();
+		Runnable empty = new Runnable() {
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+			}
+		};
+		VLCManager vlcMgr = new VLCManager(empty,empty);
 
 		final String baseTopic = "/home/breland/pi_audio/";
 		final String clientTopic = baseTopic + myMacAddress;
