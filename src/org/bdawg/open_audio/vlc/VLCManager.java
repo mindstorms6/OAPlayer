@@ -1,9 +1,14 @@
 package org.bdawg.open_audio.vlc;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.io.File;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import org.bdawg.open_audio.interfaces.IPlayItem;
 import org.bdawg.open_audio.interfaces.IPlayer;
@@ -31,6 +36,8 @@ public class VLCManager implements IPlayer {
 	private boolean hasNotifiedAboutToEnd=false;
 	private Runnable aboutToEndRunnable;
 	private Runnable endCallback;
+	private JLabel label; 
+
 	private MediaPlayerEventListener listener = new MediaPlayerEventListener() {
 
 		@Override
@@ -230,14 +237,20 @@ public class VLCManager implements IPlayer {
 		this.endCallback = endCallback;
 		this.aboutToEndRunnable = aboutToEndCallback;
 		frame = new JFrame("OpenAudio");
+		label = new JLabel("Fetching data");
+		label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+		label.setForeground(Color.white);
+		
 		frame.setUndecorated(true);
 		mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
 
 		frame.setContentPane(mediaPlayerComponent);
-
+		mediaPlayerComponent.add(label);
+		
 		Rectangle screenBounds = java.awt.GraphicsEnvironment
 				.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 				.getDefaultConfiguration().getBounds();
+		
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -251,7 +264,7 @@ public class VLCManager implements IPlayer {
 				listener);
 
 	}
-
+	
 	@Override
 	public void setVolume(int volume) {
 		mediaPlayerComponent.getMediaPlayer().setVolume(volume);
@@ -521,5 +534,11 @@ public class VLCManager implements IPlayer {
 
 		}
 
+	}
+
+	@Override
+	public void setOverlay(String overlay) {
+		this.label.setText(overlay);
+		
 	}
 }

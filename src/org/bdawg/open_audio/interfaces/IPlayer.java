@@ -6,5 +6,6 @@ public interface IPlayer {
 	public void pause(long ntpTime);
 	public void setVolume(int newVolume);
 	public void stop(long ntpTime);
+	public void setOverlay(String overlay);
 	
 }

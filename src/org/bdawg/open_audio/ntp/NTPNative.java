@@ -1,4 +1,4 @@
-package org.bdawg.open_aduio.ntp;
+package org.bdawg.open_audio.ntp;
 
 public class NTPNative {
 	public native long getOffset();

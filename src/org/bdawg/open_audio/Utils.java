@@ -50,4 +50,8 @@ public abstract class Utils {
 		socket.close();
 		return eLocalAddress;
 	}
+	
+	public static String getNotOwnedString(){
+    	return "NOT_OWNED";
+    }
 }
