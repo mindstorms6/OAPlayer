@@ -12,6 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.log4j.Logger;
 import org.bdawg.open_audio.PropertyManager;
 import org.bdawg.open_audio.PropertyManager.PropertyKey;
+import org.bdawg.open_audio.interfaces.ISimpleMQCallback;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;

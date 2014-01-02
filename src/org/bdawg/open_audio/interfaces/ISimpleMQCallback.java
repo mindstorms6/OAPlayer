@@ -1,4 +1,4 @@
-package org.bdawg.open_audio.mqtt;
+package org.bdawg.open_audio.interfaces;
 
 import java.nio.ByteBuffer;
 

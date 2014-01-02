@@ -1,80 +1,35 @@
 package org.bdawg.open_audio.file_manager;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import org.bdawg.open_audio.Utils.OAConstants;
+import org.bdawg.open_audio.impl.SinglePlayable;
+import org.bdawg.open_audio.interfaces.IPlayer;
+import org.bdawg.open_audio.interfaces.ISinglePlayable;
 
-import org.bdawg.open_audio.interfaces.IPlayItem;
+public class FileManager {
 
-import com.turn.ttorrent.client.SharedTorrent;
+	private FileManager() {
 
-public abstract class FileManager {
-
-	private static Map<String, IPlayItem> items;
-	private static File tmpDirectory = new File(
-			System.getProperty("java.io.tmpdir"));
-	private static File downloadDirectory;
-	private static File torrentsDirectory;
-	private static boolean inited = false;
-
-	public static File getDownloadsDir() throws IOException {
-		checkInit();
-		return downloadDirectory;
 	}
 
-	public static File getTorrentsDir() throws IOException {
-		checkInit();
-		return torrentsDirectory;
+	public static void playWhenReady(long timestamp,
+			ISinglePlayable aboutToPlay, IPlayer player) {
+		// Fuck it, send straight to VLC
+		if (aboutToPlay.getDLType().equals(OAConstants.DL_TYPE_SIMPLE_URL)) {
+			String path = aboutToPlay.getMeta().get(
+					OAConstants.META_SIMPLE_URL_LOCATION_KEY);
+			player.play(timestamp, path);
+		} else {
+			throw new RuntimeException(
+					"Not implemented anything besides simple URI downloads.");
+		}
+
 	}
 
-	private static void init() throws IOException {
-		if (!(tmpDirectory.exists() && tmpDirectory.canWrite() && tmpDirectory
-				.isDirectory())) {
-			throw new IOException("Can't write to a download directory!");
+	public static void queueForDownload(ISinglePlayable playable) {
+		// TODO Auto-generated method stub
+		if (playable.canVLCPlayDirect()) {
+			// no - op
 		}
-		items = new HashMap<String, IPlayItem>();
-		downloadDirectory = new File(tmpDirectory, "oa_downloads");
-		if (!downloadDirectory.exists()) {
-			downloadDirectory.mkdir();
-		}
-		downloadDirectory.setWritable(true, true);
-		torrentsDirectory = new File(downloadDirectory, "tor_files");
-		if (!torrentsDirectory.exists()) {
-			torrentsDirectory.mkdir();
-		}
-		torrentsDirectory.setWritable(true, true);
-		File[] existringTorrentFiles = torrentsDirectory
-				.listFiles(new FileFilter() {
-
-					@Override
-					public boolean accept(File pathname) {
-						if (pathname.getName().endsWith(".torrent")) {
-							return true;
-						}
-						return false;
-					}
-				});
-		for (File f : existringTorrentFiles) {
-			SharedTorrent t = SharedTorrent.fromFile(f, downloadDirectory);
-			Playable p = new Playable(t);
-			items.put(p.getItemId().toString(), p);
-		}
-
-		inited = true;
-	}
-
-	private static void checkInit() throws IOException {
-		if (!inited) {
-			init();
-		}
-	}
-
-	public static FileProgress queueToDownload(IPlayItem item)
-			throws IOException {
-		checkInit();
-		return new FileProgress();
 	}
 
 }

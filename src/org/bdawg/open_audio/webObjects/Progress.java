@@ -7,6 +7,7 @@ public class Progress {
 	private long progressTime;
 	private boolean isStreaming;
 	private String itemUUID;
+	private int subIndex;
 	
 	public Progress(){
 		
@@ -41,6 +42,14 @@ public class Progress {
 	}
 	public void setItemUUID(String itemUUID) {
 		this.itemUUID = itemUUID;
+	}
+
+	public int getSubIndex() {
+		return subIndex;
+	}
+
+	public void setSubIndex(int subIndex) {
+		this.subIndex = subIndex;
 	}
 
 }

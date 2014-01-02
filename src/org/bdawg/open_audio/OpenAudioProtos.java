@@ -2512,19 +2512,19 @@ public final class OpenAudioProtos {
      */
     long getTimestamp();
 
-    // optional .open_audio.PlayItem item = 4;
+    // optional .open_audio.SinglePBItem item = 4;
     /**
-     * <code>optional .open_audio.PlayItem item = 4;</code>
+     * <code>optional .open_audio.SinglePBItem item = 4;</code>
      */
     boolean hasItem();
     /**
-     * <code>optional .open_audio.PlayItem item = 4;</code>
+     * <code>optional .open_audio.SinglePBItem item = 4;</code>
      */
-    org.bdawg.open_audio.OpenAudioProtos.PlayItem getItem();
+    org.bdawg.open_audio.OpenAudioProtos.SinglePBItem getItem();
     /**
-     * <code>optional .open_audio.PlayItem item = 4;</code>
+     * <code>optional .open_audio.SinglePBItem item = 4;</code>
      */
-    org.bdawg.open_audio.OpenAudioProtos.PlayItemOrBuilder getItemOrBuilder();
+    org.bdawg.open_audio.OpenAudioProtos.SinglePBItemOrBuilder getItemOrBuilder();
   }
   /**
    * Protobuf type {@code open_audio.ClientCommand}
@@ -2599,11 +2599,11 @@ public final class OpenAudioProtos {
               break;
             }
             case 34: {
-              org.bdawg.open_audio.OpenAudioProtos.PlayItem.Builder subBuilder = null;
+              org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.Builder subBuilder = null;
               if (((bitField0_ & 0x00000008) == 0x00000008)) {
                 subBuilder = item_.toBuilder();
               }
-              item_ = input.readMessage(org.bdawg.open_audio.OpenAudioProtos.PlayItem.PARSER, extensionRegistry);
+              item_ = input.readMessage(org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.PARSER, extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(item_);
                 item_ = subBuilder.buildPartial();
@@ -2817,25 +2817,25 @@ public final class OpenAudioProtos {
       return timestamp_;
     }
 
-    // optional .open_audio.PlayItem item = 4;
+    // optional .open_audio.SinglePBItem item = 4;
     public static final int ITEM_FIELD_NUMBER = 4;
-    private org.bdawg.open_audio.OpenAudioProtos.PlayItem item_;
+    private org.bdawg.open_audio.OpenAudioProtos.SinglePBItem item_;
     /**
-     * <code>optional .open_audio.PlayItem item = 4;</code>
+     * <code>optional .open_audio.SinglePBItem item = 4;</code>
      */
     public boolean hasItem() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional .open_audio.PlayItem item = 4;</code>
+     * <code>optional .open_audio.SinglePBItem item = 4;</code>
      */
-    public org.bdawg.open_audio.OpenAudioProtos.PlayItem getItem() {
+    public org.bdawg.open_audio.OpenAudioProtos.SinglePBItem getItem() {
       return item_;
     }
     /**
-     * <code>optional .open_audio.PlayItem item = 4;</code>
+     * <code>optional .open_audio.SinglePBItem item = 4;</code>
      */
-    public org.bdawg.open_audio.OpenAudioProtos.PlayItemOrBuilder getItemOrBuilder() {
+    public org.bdawg.open_audio.OpenAudioProtos.SinglePBItemOrBuilder getItemOrBuilder() {
       return item_;
     }
 
@@ -2843,7 +2843,7 @@ public final class OpenAudioProtos {
       clientAction_ = org.bdawg.open_audio.OpenAudioProtos.ClientCommand.ClientAction.PLAY;
       newVolume_ = 0;
       timestamp_ = 0L;
-      item_ = org.bdawg.open_audio.OpenAudioProtos.PlayItem.getDefaultInstance();
+      item_ = org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3018,7 +3018,7 @@ public final class OpenAudioProtos {
         timestamp_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
         if (itemBuilder_ == null) {
-          item_ = org.bdawg.open_audio.OpenAudioProtos.PlayItem.getDefaultInstance();
+          item_ = org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.getDefaultInstance();
         } else {
           itemBuilder_.clear();
         }
@@ -3228,20 +3228,20 @@ public final class OpenAudioProtos {
         return this;
       }
 
-      // optional .open_audio.PlayItem item = 4;
-      private org.bdawg.open_audio.OpenAudioProtos.PlayItem item_ = org.bdawg.open_audio.OpenAudioProtos.PlayItem.getDefaultInstance();
+      // optional .open_audio.SinglePBItem item = 4;
+      private org.bdawg.open_audio.OpenAudioProtos.SinglePBItem item_ = org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
-          org.bdawg.open_audio.OpenAudioProtos.PlayItem, org.bdawg.open_audio.OpenAudioProtos.PlayItem.Builder, org.bdawg.open_audio.OpenAudioProtos.PlayItemOrBuilder> itemBuilder_;
+          org.bdawg.open_audio.OpenAudioProtos.SinglePBItem, org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.Builder, org.bdawg.open_audio.OpenAudioProtos.SinglePBItemOrBuilder> itemBuilder_;
       /**
-       * <code>optional .open_audio.PlayItem item = 4;</code>
+       * <code>optional .open_audio.SinglePBItem item = 4;</code>
        */
       public boolean hasItem() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional .open_audio.PlayItem item = 4;</code>
+       * <code>optional .open_audio.SinglePBItem item = 4;</code>
        */
-      public org.bdawg.open_audio.OpenAudioProtos.PlayItem getItem() {
+      public org.bdawg.open_audio.OpenAudioProtos.SinglePBItem getItem() {
         if (itemBuilder_ == null) {
           return item_;
         } else {
@@ -3249,9 +3249,9 @@ public final class OpenAudioProtos {
         }
       }
       /**
-       * <code>optional .open_audio.PlayItem item = 4;</code>
+       * <code>optional .open_audio.SinglePBItem item = 4;</code>
        */
-      public Builder setItem(org.bdawg.open_audio.OpenAudioProtos.PlayItem value) {
+      public Builder setItem(org.bdawg.open_audio.OpenAudioProtos.SinglePBItem value) {
         if (itemBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3265,10 +3265,10 @@ public final class OpenAudioProtos {
         return this;
       }
       /**
-       * <code>optional .open_audio.PlayItem item = 4;</code>
+       * <code>optional .open_audio.SinglePBItem item = 4;</code>
        */
       public Builder setItem(
-          org.bdawg.open_audio.OpenAudioProtos.PlayItem.Builder builderForValue) {
+          org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.Builder builderForValue) {
         if (itemBuilder_ == null) {
           item_ = builderForValue.build();
           onChanged();
@@ -3279,14 +3279,14 @@ public final class OpenAudioProtos {
         return this;
       }
       /**
-       * <code>optional .open_audio.PlayItem item = 4;</code>
+       * <code>optional .open_audio.SinglePBItem item = 4;</code>
        */
-      public Builder mergeItem(org.bdawg.open_audio.OpenAudioProtos.PlayItem value) {
+      public Builder mergeItem(org.bdawg.open_audio.OpenAudioProtos.SinglePBItem value) {
         if (itemBuilder_ == null) {
           if (((bitField0_ & 0x00000008) == 0x00000008) &&
-              item_ != org.bdawg.open_audio.OpenAudioProtos.PlayItem.getDefaultInstance()) {
+              item_ != org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.getDefaultInstance()) {
             item_ =
-              org.bdawg.open_audio.OpenAudioProtos.PlayItem.newBuilder(item_).mergeFrom(value).buildPartial();
+              org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.newBuilder(item_).mergeFrom(value).buildPartial();
           } else {
             item_ = value;
           }
@@ -3298,11 +3298,11 @@ public final class OpenAudioProtos {
         return this;
       }
       /**
-       * <code>optional .open_audio.PlayItem item = 4;</code>
+       * <code>optional .open_audio.SinglePBItem item = 4;</code>
        */
       public Builder clearItem() {
         if (itemBuilder_ == null) {
-          item_ = org.bdawg.open_audio.OpenAudioProtos.PlayItem.getDefaultInstance();
+          item_ = org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.getDefaultInstance();
           onChanged();
         } else {
           itemBuilder_.clear();
@@ -3311,17 +3311,17 @@ public final class OpenAudioProtos {
         return this;
       }
       /**
-       * <code>optional .open_audio.PlayItem item = 4;</code>
+       * <code>optional .open_audio.SinglePBItem item = 4;</code>
        */
-      public org.bdawg.open_audio.OpenAudioProtos.PlayItem.Builder getItemBuilder() {
+      public org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.Builder getItemBuilder() {
         bitField0_ |= 0x00000008;
         onChanged();
         return getItemFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .open_audio.PlayItem item = 4;</code>
+       * <code>optional .open_audio.SinglePBItem item = 4;</code>
        */
-      public org.bdawg.open_audio.OpenAudioProtos.PlayItemOrBuilder getItemOrBuilder() {
+      public org.bdawg.open_audio.OpenAudioProtos.SinglePBItemOrBuilder getItemOrBuilder() {
         if (itemBuilder_ != null) {
           return itemBuilder_.getMessageOrBuilder();
         } else {
@@ -3329,14 +3329,14 @@ public final class OpenAudioProtos {
         }
       }
       /**
-       * <code>optional .open_audio.PlayItem item = 4;</code>
+       * <code>optional .open_audio.SinglePBItem item = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
-          org.bdawg.open_audio.OpenAudioProtos.PlayItem, org.bdawg.open_audio.OpenAudioProtos.PlayItem.Builder, org.bdawg.open_audio.OpenAudioProtos.PlayItemOrBuilder> 
+          org.bdawg.open_audio.OpenAudioProtos.SinglePBItem, org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.Builder, org.bdawg.open_audio.OpenAudioProtos.SinglePBItemOrBuilder> 
           getItemFieldBuilder() {
         if (itemBuilder_ == null) {
           itemBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.bdawg.open_audio.OpenAudioProtos.PlayItem, org.bdawg.open_audio.OpenAudioProtos.PlayItem.Builder, org.bdawg.open_audio.OpenAudioProtos.PlayItemOrBuilder>(
+              org.bdawg.open_audio.OpenAudioProtos.SinglePBItem, org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.Builder, org.bdawg.open_audio.OpenAudioProtos.SinglePBItemOrBuilder>(
                   item_,
                   getParentForChildren(),
                   isClean());
@@ -3356,88 +3356,103 @@ public final class OpenAudioProtos {
     // @@protoc_insertion_point(class_scope:open_audio.ClientCommand)
   }
 
-  public interface PlayItemOrBuilder
+  public interface SinglePBItemOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // optional bytes item_bytes = 1;
+    // optional int32 subIndex = 1;
     /**
-     * <code>optional bytes item_bytes = 1;</code>
+     * <code>optional int32 subIndex = 1;</code>
      */
-    boolean hasItemBytes();
+    boolean hasSubIndex();
     /**
-     * <code>optional bytes item_bytes = 1;</code>
+     * <code>optional int32 subIndex = 1;</code>
      */
-    com.google.protobuf.ByteString getItemBytes();
+    int getSubIndex();
 
-    // optional string item_id = 2;
+    // optional string masterId = 2;
     /**
-     * <code>optional string item_id = 2;</code>
+     * <code>optional string masterId = 2;</code>
      */
-    boolean hasItemId();
+    boolean hasMasterId();
     /**
-     * <code>optional string item_id = 2;</code>
+     * <code>optional string masterId = 2;</code>
      */
-    java.lang.String getItemId();
+    java.lang.String getMasterId();
     /**
-     * <code>optional string item_id = 2;</code>
+     * <code>optional string masterId = 2;</code>
      */
     com.google.protobuf.ByteString
-        getItemIdBytes();
+        getMasterIdBytes();
 
-    // optional string item_uri = 3;
+    // optional bool directPlaybackFlag = 3;
     /**
-     * <code>optional string item_uri = 3;</code>
+     * <code>optional bool directPlaybackFlag = 3;</code>
      */
-    boolean hasItemUri();
+    boolean hasDirectPlaybackFlag();
     /**
-     * <code>optional string item_uri = 3;</code>
+     * <code>optional bool directPlaybackFlag = 3;</code>
      */
-    java.lang.String getItemUri();
+    boolean getDirectPlaybackFlag();
+
+    // repeated .open_audio.KVType meta = 5;
     /**
-     * <code>optional string item_uri = 3;</code>
+     * <code>repeated .open_audio.KVType meta = 5;</code>
+     */
+    java.util.List<org.bdawg.open_audio.OpenAudioProtos.KVType> 
+        getMetaList();
+    /**
+     * <code>repeated .open_audio.KVType meta = 5;</code>
+     */
+    org.bdawg.open_audio.OpenAudioProtos.KVType getMeta(int index);
+    /**
+     * <code>repeated .open_audio.KVType meta = 5;</code>
+     */
+    int getMetaCount();
+    /**
+     * <code>repeated .open_audio.KVType meta = 5;</code>
+     */
+    java.util.List<? extends org.bdawg.open_audio.OpenAudioProtos.KVTypeOrBuilder> 
+        getMetaOrBuilderList();
+    /**
+     * <code>repeated .open_audio.KVType meta = 5;</code>
+     */
+    org.bdawg.open_audio.OpenAudioProtos.KVTypeOrBuilder getMetaOrBuilder(
+        int index);
+
+    // optional string dl_type = 6;
+    /**
+     * <code>optional string dl_type = 6;</code>
+     */
+    boolean hasDlType();
+    /**
+     * <code>optional string dl_type = 6;</code>
+     */
+    java.lang.String getDlType();
+    /**
+     * <code>optional string dl_type = 6;</code>
      */
     com.google.protobuf.ByteString
-        getItemUriBytes();
-
-    // optional bytes torrent_bytes = 4;
-    /**
-     * <code>optional bytes torrent_bytes = 4;</code>
-     */
-    boolean hasTorrentBytes();
-    /**
-     * <code>optional bytes torrent_bytes = 4;</code>
-     */
-    com.google.protobuf.ByteString getTorrentBytes();
-
-    // optional .open_audio.PlayItem.PlayItemType play_type = 5;
-    /**
-     * <code>optional .open_audio.PlayItem.PlayItemType play_type = 5;</code>
-     */
-    boolean hasPlayType();
-    /**
-     * <code>optional .open_audio.PlayItem.PlayItemType play_type = 5;</code>
-     */
-    org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType getPlayType();
+        getDlTypeBytes();
   }
   /**
-   * Protobuf type {@code open_audio.PlayItem}
+   * Protobuf type {@code open_audio.SinglePBItem}
    */
-  public static final class PlayItem extends
+  public static final class SinglePBItem extends
       com.google.protobuf.GeneratedMessage
-      implements PlayItemOrBuilder {
-    // Use PlayItem.newBuilder() to construct.
-    private PlayItem(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      implements SinglePBItemOrBuilder {
+    // Use SinglePBItem.newBuilder() to construct.
+    private SinglePBItem(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private PlayItem(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private SinglePBItem(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final PlayItem defaultInstance;
-    public static PlayItem getDefaultInstance() {
+    private static final SinglePBItem defaultInstance;
+    public static SinglePBItem getDefaultInstance() {
       return defaultInstance;
     }
 
-    public PlayItem getDefaultInstanceForType() {
+    public SinglePBItem getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -3447,7 +3462,7 @@ public final class OpenAudioProtos {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private PlayItem(
+    private SinglePBItem(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3470,991 +3485,32 @@ public final class OpenAudioProtos {
               }
               break;
             }
-            case 10: {
+            case 8: {
               bitField0_ |= 0x00000001;
-              itemBytes_ = input.readBytes();
+              subIndex_ = input.readInt32();
               break;
             }
             case 18: {
               bitField0_ |= 0x00000002;
-              itemId_ = input.readBytes();
-              break;
-            }
-            case 26: {
-              bitField0_ |= 0x00000004;
-              itemUri_ = input.readBytes();
-              break;
-            }
-            case 34: {
-              bitField0_ |= 0x00000008;
-              torrentBytes_ = input.readBytes();
-              break;
-            }
-            case 40: {
-              int rawValue = input.readEnum();
-              org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType value = org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(5, rawValue);
-              } else {
-                bitField0_ |= 0x00000010;
-                playType_ = value;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_PlayItem_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_PlayItem_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              org.bdawg.open_audio.OpenAudioProtos.PlayItem.class, org.bdawg.open_audio.OpenAudioProtos.PlayItem.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<PlayItem> PARSER =
-        new com.google.protobuf.AbstractParser<PlayItem>() {
-      public PlayItem parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PlayItem(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<PlayItem> getParserForType() {
-      return PARSER;
-    }
-
-    /**
-     * Protobuf enum {@code open_audio.PlayItem.PlayItemType}
-     */
-    public enum PlayItemType
-        implements com.google.protobuf.ProtocolMessageEnum {
-      /**
-       * <code>BYTES = 0;</code>
-       */
-      BYTES(0, 0),
-      /**
-       * <code>INET_URI = 1;</code>
-       */
-      INET_URI(1, 1),
-      /**
-       * <code>TORRENT = 2;</code>
-       */
-      TORRENT(2, 2),
-      ;
-
-      /**
-       * <code>BYTES = 0;</code>
-       */
-      public static final int BYTES_VALUE = 0;
-      /**
-       * <code>INET_URI = 1;</code>
-       */
-      public static final int INET_URI_VALUE = 1;
-      /**
-       * <code>TORRENT = 2;</code>
-       */
-      public static final int TORRENT_VALUE = 2;
-
-
-      public final int getNumber() { return value; }
-
-      public static PlayItemType valueOf(int value) {
-        switch (value) {
-          case 0: return BYTES;
-          case 1: return INET_URI;
-          case 2: return TORRENT;
-          default: return null;
-        }
-      }
-
-      public static com.google.protobuf.Internal.EnumLiteMap<PlayItemType>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<PlayItemType>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<PlayItemType>() {
-              public PlayItemType findValueByNumber(int number) {
-                return PlayItemType.valueOf(number);
-              }
-            };
-
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return org.bdawg.open_audio.OpenAudioProtos.PlayItem.getDescriptor().getEnumTypes().get(0);
-      }
-
-      private static final PlayItemType[] VALUES = values();
-
-      public static PlayItemType valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-
-      private final int index;
-      private final int value;
-
-      private PlayItemType(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-
-      // @@protoc_insertion_point(enum_scope:open_audio.PlayItem.PlayItemType)
-    }
-
-    private int bitField0_;
-    // optional bytes item_bytes = 1;
-    public static final int ITEM_BYTES_FIELD_NUMBER = 1;
-    private com.google.protobuf.ByteString itemBytes_;
-    /**
-     * <code>optional bytes item_bytes = 1;</code>
-     */
-    public boolean hasItemBytes() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>optional bytes item_bytes = 1;</code>
-     */
-    public com.google.protobuf.ByteString getItemBytes() {
-      return itemBytes_;
-    }
-
-    // optional string item_id = 2;
-    public static final int ITEM_ID_FIELD_NUMBER = 2;
-    private java.lang.Object itemId_;
-    /**
-     * <code>optional string item_id = 2;</code>
-     */
-    public boolean hasItemId() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>optional string item_id = 2;</code>
-     */
-    public java.lang.String getItemId() {
-      java.lang.Object ref = itemId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          itemId_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string item_id = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getItemIdBytes() {
-      java.lang.Object ref = itemId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        itemId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    // optional string item_uri = 3;
-    public static final int ITEM_URI_FIELD_NUMBER = 3;
-    private java.lang.Object itemUri_;
-    /**
-     * <code>optional string item_uri = 3;</code>
-     */
-    public boolean hasItemUri() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>optional string item_uri = 3;</code>
-     */
-    public java.lang.String getItemUri() {
-      java.lang.Object ref = itemUri_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          itemUri_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>optional string item_uri = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getItemUriBytes() {
-      java.lang.Object ref = itemUri_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        itemUri_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    // optional bytes torrent_bytes = 4;
-    public static final int TORRENT_BYTES_FIELD_NUMBER = 4;
-    private com.google.protobuf.ByteString torrentBytes_;
-    /**
-     * <code>optional bytes torrent_bytes = 4;</code>
-     */
-    public boolean hasTorrentBytes() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    /**
-     * <code>optional bytes torrent_bytes = 4;</code>
-     */
-    public com.google.protobuf.ByteString getTorrentBytes() {
-      return torrentBytes_;
-    }
-
-    // optional .open_audio.PlayItem.PlayItemType play_type = 5;
-    public static final int PLAY_TYPE_FIELD_NUMBER = 5;
-    private org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType playType_;
-    /**
-     * <code>optional .open_audio.PlayItem.PlayItemType play_type = 5;</code>
-     */
-    public boolean hasPlayType() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    /**
-     * <code>optional .open_audio.PlayItem.PlayItemType play_type = 5;</code>
-     */
-    public org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType getPlayType() {
-      return playType_;
-    }
-
-    private void initFields() {
-      itemBytes_ = com.google.protobuf.ByteString.EMPTY;
-      itemId_ = "";
-      itemUri_ = "";
-      torrentBytes_ = com.google.protobuf.ByteString.EMPTY;
-      playType_ = org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType.BYTES;
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, itemBytes_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getItemIdBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getItemUriBytes());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, torrentBytes_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeEnum(5, playType_.getNumber());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, itemBytes_);
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getItemIdBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getItemUriBytes());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, torrentBytes_);
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(5, playType_.getNumber());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static org.bdawg.open_audio.OpenAudioProtos.PlayItem parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.bdawg.open_audio.OpenAudioProtos.PlayItem prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code open_audio.PlayItem}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.bdawg.open_audio.OpenAudioProtos.PlayItemOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_PlayItem_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_PlayItem_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                org.bdawg.open_audio.OpenAudioProtos.PlayItem.class, org.bdawg.open_audio.OpenAudioProtos.PlayItem.Builder.class);
-      }
-
-      // Construct using org.bdawg.open_audio.OpenAudioProtos.PlayItem.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        itemBytes_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        itemId_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        itemUri_ = "";
-        bitField0_ = (bitField0_ & ~0x00000004);
-        torrentBytes_ = com.google.protobuf.ByteString.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000008);
-        playType_ = org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType.BYTES;
-        bitField0_ = (bitField0_ & ~0x00000010);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_PlayItem_descriptor;
-      }
-
-      public org.bdawg.open_audio.OpenAudioProtos.PlayItem getDefaultInstanceForType() {
-        return org.bdawg.open_audio.OpenAudioProtos.PlayItem.getDefaultInstance();
-      }
-
-      public org.bdawg.open_audio.OpenAudioProtos.PlayItem build() {
-        org.bdawg.open_audio.OpenAudioProtos.PlayItem result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public org.bdawg.open_audio.OpenAudioProtos.PlayItem buildPartial() {
-        org.bdawg.open_audio.OpenAudioProtos.PlayItem result = new org.bdawg.open_audio.OpenAudioProtos.PlayItem(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.itemBytes_ = itemBytes_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.itemId_ = itemId_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.itemUri_ = itemUri_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.torrentBytes_ = torrentBytes_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.playType_ = playType_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.bdawg.open_audio.OpenAudioProtos.PlayItem) {
-          return mergeFrom((org.bdawg.open_audio.OpenAudioProtos.PlayItem)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(org.bdawg.open_audio.OpenAudioProtos.PlayItem other) {
-        if (other == org.bdawg.open_audio.OpenAudioProtos.PlayItem.getDefaultInstance()) return this;
-        if (other.hasItemBytes()) {
-          setItemBytes(other.getItemBytes());
-        }
-        if (other.hasItemId()) {
-          bitField0_ |= 0x00000002;
-          itemId_ = other.itemId_;
-          onChanged();
-        }
-        if (other.hasItemUri()) {
-          bitField0_ |= 0x00000004;
-          itemUri_ = other.itemUri_;
-          onChanged();
-        }
-        if (other.hasTorrentBytes()) {
-          setTorrentBytes(other.getTorrentBytes());
-        }
-        if (other.hasPlayType()) {
-          setPlayType(other.getPlayType());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        org.bdawg.open_audio.OpenAudioProtos.PlayItem parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.bdawg.open_audio.OpenAudioProtos.PlayItem) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      // optional bytes item_bytes = 1;
-      private com.google.protobuf.ByteString itemBytes_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>optional bytes item_bytes = 1;</code>
-       */
-      public boolean hasItemBytes() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>optional bytes item_bytes = 1;</code>
-       */
-      public com.google.protobuf.ByteString getItemBytes() {
-        return itemBytes_;
-      }
-      /**
-       * <code>optional bytes item_bytes = 1;</code>
-       */
-      public Builder setItemBytes(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        itemBytes_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional bytes item_bytes = 1;</code>
-       */
-      public Builder clearItemBytes() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        itemBytes_ = getDefaultInstance().getItemBytes();
-        onChanged();
-        return this;
-      }
-
-      // optional string item_id = 2;
-      private java.lang.Object itemId_ = "";
-      /**
-       * <code>optional string item_id = 2;</code>
-       */
-      public boolean hasItemId() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>optional string item_id = 2;</code>
-       */
-      public java.lang.String getItemId() {
-        java.lang.Object ref = itemId_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          itemId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string item_id = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getItemIdBytes() {
-        java.lang.Object ref = itemId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          itemId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string item_id = 2;</code>
-       */
-      public Builder setItemId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        itemId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string item_id = 2;</code>
-       */
-      public Builder clearItemId() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        itemId_ = getDefaultInstance().getItemId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string item_id = 2;</code>
-       */
-      public Builder setItemIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-        itemId_ = value;
-        onChanged();
-        return this;
-      }
-
-      // optional string item_uri = 3;
-      private java.lang.Object itemUri_ = "";
-      /**
-       * <code>optional string item_uri = 3;</code>
-       */
-      public boolean hasItemUri() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>optional string item_uri = 3;</code>
-       */
-      public java.lang.String getItemUri() {
-        java.lang.Object ref = itemUri_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          itemUri_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string item_uri = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getItemUriBytes() {
-        java.lang.Object ref = itemUri_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          itemUri_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string item_uri = 3;</code>
-       */
-      public Builder setItemUri(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        itemUri_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string item_uri = 3;</code>
-       */
-      public Builder clearItemUri() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        itemUri_ = getDefaultInstance().getItemUri();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string item_uri = 3;</code>
-       */
-      public Builder setItemUriBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-        itemUri_ = value;
-        onChanged();
-        return this;
-      }
-
-      // optional bytes torrent_bytes = 4;
-      private com.google.protobuf.ByteString torrentBytes_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>optional bytes torrent_bytes = 4;</code>
-       */
-      public boolean hasTorrentBytes() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
-      /**
-       * <code>optional bytes torrent_bytes = 4;</code>
-       */
-      public com.google.protobuf.ByteString getTorrentBytes() {
-        return torrentBytes_;
-      }
-      /**
-       * <code>optional bytes torrent_bytes = 4;</code>
-       */
-      public Builder setTorrentBytes(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000008;
-        torrentBytes_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional bytes torrent_bytes = 4;</code>
-       */
-      public Builder clearTorrentBytes() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        torrentBytes_ = getDefaultInstance().getTorrentBytes();
-        onChanged();
-        return this;
-      }
-
-      // optional .open_audio.PlayItem.PlayItemType play_type = 5;
-      private org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType playType_ = org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType.BYTES;
-      /**
-       * <code>optional .open_audio.PlayItem.PlayItemType play_type = 5;</code>
-       */
-      public boolean hasPlayType() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
-      }
-      /**
-       * <code>optional .open_audio.PlayItem.PlayItemType play_type = 5;</code>
-       */
-      public org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType getPlayType() {
-        return playType_;
-      }
-      /**
-       * <code>optional .open_audio.PlayItem.PlayItemType play_type = 5;</code>
-       */
-      public Builder setPlayType(org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        bitField0_ |= 0x00000010;
-        playType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional .open_audio.PlayItem.PlayItemType play_type = 5;</code>
-       */
-      public Builder clearPlayType() {
-        bitField0_ = (bitField0_ & ~0x00000010);
-        playType_ = org.bdawg.open_audio.OpenAudioProtos.PlayItem.PlayItemType.BYTES;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:open_audio.PlayItem)
-    }
-
-    static {
-      defaultInstance = new PlayItem(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:open_audio.PlayItem)
-  }
-
-  public interface ElectionMessageOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-
-    // optional string node_id = 1;
-    /**
-     * <code>optional string node_id = 1;</code>
-     */
-    boolean hasNodeId();
-    /**
-     * <code>optional string node_id = 1;</code>
-     */
-    java.lang.String getNodeId();
-    /**
-     * <code>optional string node_id = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getNodeIdBytes();
-
-    // optional int32 offer = 2;
-    /**
-     * <code>optional int32 offer = 2;</code>
-     */
-    boolean hasOffer();
-    /**
-     * <code>optional int32 offer = 2;</code>
-     */
-    int getOffer();
-
-    // optional int64 timestamp = 3;
-    /**
-     * <code>optional int64 timestamp = 3;</code>
-     */
-    boolean hasTimestamp();
-    /**
-     * <code>optional int64 timestamp = 3;</code>
-     */
-    long getTimestamp();
-
-    // optional .open_audio.ElectionMessage.ElectionMessageType type = 4;
-    /**
-     * <code>optional .open_audio.ElectionMessage.ElectionMessageType type = 4;</code>
-     */
-    boolean hasType();
-    /**
-     * <code>optional .open_audio.ElectionMessage.ElectionMessageType type = 4;</code>
-     */
-    org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType getType();
-  }
-  /**
-   * Protobuf type {@code open_audio.ElectionMessage}
-   */
-  public static final class ElectionMessage extends
-      com.google.protobuf.GeneratedMessage
-      implements ElectionMessageOrBuilder {
-    // Use ElectionMessage.newBuilder() to construct.
-    private ElectionMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private ElectionMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ElectionMessage defaultInstance;
-    public static ElectionMessage getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public ElectionMessage getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ElectionMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              nodeId_ = input.readBytes();
-              break;
-            }
-            case 16: {
-              bitField0_ |= 0x00000002;
-              offer_ = input.readInt32();
+              masterId_ = input.readBytes();
               break;
             }
             case 24: {
               bitField0_ |= 0x00000004;
-              timestamp_ = input.readInt64();
+              directPlaybackFlag_ = input.readBool();
               break;
             }
-            case 32: {
-              int rawValue = input.readEnum();
-              org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType value = org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(4, rawValue);
-              } else {
-                bitField0_ |= 0x00000008;
-                type_ = value;
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                meta_ = new java.util.ArrayList<org.bdawg.open_audio.OpenAudioProtos.KVType>();
+                mutable_bitField0_ |= 0x00000008;
               }
+              meta_.add(input.readMessage(org.bdawg.open_audio.OpenAudioProtos.KVType.PARSER, extensionRegistry));
+              break;
+            }
+            case 50: {
+              bitField0_ |= 0x00000008;
+              dlType_ = input.readBytes();
               break;
             }
           }
@@ -4465,170 +3521,71 @@ public final class OpenAudioProtos {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          meta_ = java.util.Collections.unmodifiableList(meta_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_ElectionMessage_descriptor;
+      return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_SinglePBItem_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_ElectionMessage_fieldAccessorTable
+      return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_SinglePBItem_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.class, org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.Builder.class);
+              org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.class, org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ElectionMessage> PARSER =
-        new com.google.protobuf.AbstractParser<ElectionMessage>() {
-      public ElectionMessage parsePartialFrom(
+    public static com.google.protobuf.Parser<SinglePBItem> PARSER =
+        new com.google.protobuf.AbstractParser<SinglePBItem>() {
+      public SinglePBItem parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ElectionMessage(input, extensionRegistry);
+        return new SinglePBItem(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ElectionMessage> getParserForType() {
+    public com.google.protobuf.Parser<SinglePBItem> getParserForType() {
       return PARSER;
     }
 
-    /**
-     * Protobuf enum {@code open_audio.ElectionMessage.ElectionMessageType}
-     */
-    public enum ElectionMessageType
-        implements com.google.protobuf.ProtocolMessageEnum {
-      /**
-       * <code>OFFER = 0;</code>
-       */
-      OFFER(0, 0),
-      /**
-       * <code>MASTER_HB = 1;</code>
-       */
-      MASTER_HB(1, 1),
-      /**
-       * <code>NOTIFY_ELECTION = 2;</code>
-       */
-      NOTIFY_ELECTION(2, 2),
-      /**
-       * <code>CLIENT_HB = 3;</code>
-       */
-      CLIENT_HB(3, 3),
-      /**
-       * <code>ELECT_END = 4;</code>
-       */
-      ELECT_END(4, 4),
-      /**
-       * <code>ELECT_CONFLICT = 5;</code>
-       */
-      ELECT_CONFLICT(5, 5),
-      ;
-
-      /**
-       * <code>OFFER = 0;</code>
-       */
-      public static final int OFFER_VALUE = 0;
-      /**
-       * <code>MASTER_HB = 1;</code>
-       */
-      public static final int MASTER_HB_VALUE = 1;
-      /**
-       * <code>NOTIFY_ELECTION = 2;</code>
-       */
-      public static final int NOTIFY_ELECTION_VALUE = 2;
-      /**
-       * <code>CLIENT_HB = 3;</code>
-       */
-      public static final int CLIENT_HB_VALUE = 3;
-      /**
-       * <code>ELECT_END = 4;</code>
-       */
-      public static final int ELECT_END_VALUE = 4;
-      /**
-       * <code>ELECT_CONFLICT = 5;</code>
-       */
-      public static final int ELECT_CONFLICT_VALUE = 5;
-
-
-      public final int getNumber() { return value; }
-
-      public static ElectionMessageType valueOf(int value) {
-        switch (value) {
-          case 0: return OFFER;
-          case 1: return MASTER_HB;
-          case 2: return NOTIFY_ELECTION;
-          case 3: return CLIENT_HB;
-          case 4: return ELECT_END;
-          case 5: return ELECT_CONFLICT;
-          default: return null;
-        }
-      }
-
-      public static com.google.protobuf.Internal.EnumLiteMap<ElectionMessageType>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<ElectionMessageType>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<ElectionMessageType>() {
-              public ElectionMessageType findValueByNumber(int number) {
-                return ElectionMessageType.valueOf(number);
-              }
-            };
-
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.getDescriptor().getEnumTypes().get(0);
-      }
-
-      private static final ElectionMessageType[] VALUES = values();
-
-      public static ElectionMessageType valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-
-      private final int index;
-      private final int value;
-
-      private ElectionMessageType(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-
-      // @@protoc_insertion_point(enum_scope:open_audio.ElectionMessage.ElectionMessageType)
-    }
-
     private int bitField0_;
-    // optional string node_id = 1;
-    public static final int NODE_ID_FIELD_NUMBER = 1;
-    private java.lang.Object nodeId_;
+    // optional int32 subIndex = 1;
+    public static final int SUBINDEX_FIELD_NUMBER = 1;
+    private int subIndex_;
     /**
-     * <code>optional string node_id = 1;</code>
+     * <code>optional int32 subIndex = 1;</code>
      */
-    public boolean hasNodeId() {
+    public boolean hasSubIndex() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>optional string node_id = 1;</code>
+     * <code>optional int32 subIndex = 1;</code>
      */
-    public java.lang.String getNodeId() {
-      java.lang.Object ref = nodeId_;
+    public int getSubIndex() {
+      return subIndex_;
+    }
+
+    // optional string masterId = 2;
+    public static final int MASTERID_FIELD_NUMBER = 2;
+    private java.lang.Object masterId_;
+    /**
+     * <code>optional string masterId = 2;</code>
+     */
+    public boolean hasMasterId() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string masterId = 2;</code>
+     */
+    public java.lang.String getMasterId() {
+      java.lang.Object ref = masterId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -4636,81 +3593,129 @@ public final class OpenAudioProtos {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          nodeId_ = s;
+          masterId_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>optional string node_id = 1;</code>
+     * <code>optional string masterId = 2;</code>
      */
     public com.google.protobuf.ByteString
-        getNodeIdBytes() {
-      java.lang.Object ref = nodeId_;
+        getMasterIdBytes() {
+      java.lang.Object ref = masterId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        nodeId_ = b;
+        masterId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    // optional int32 offer = 2;
-    public static final int OFFER_FIELD_NUMBER = 2;
-    private int offer_;
+    // optional bool directPlaybackFlag = 3;
+    public static final int DIRECTPLAYBACKFLAG_FIELD_NUMBER = 3;
+    private boolean directPlaybackFlag_;
     /**
-     * <code>optional int32 offer = 2;</code>
+     * <code>optional bool directPlaybackFlag = 3;</code>
      */
-    public boolean hasOffer() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>optional int32 offer = 2;</code>
-     */
-    public int getOffer() {
-      return offer_;
-    }
-
-    // optional int64 timestamp = 3;
-    public static final int TIMESTAMP_FIELD_NUMBER = 3;
-    private long timestamp_;
-    /**
-     * <code>optional int64 timestamp = 3;</code>
-     */
-    public boolean hasTimestamp() {
+    public boolean hasDirectPlaybackFlag() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional int64 timestamp = 3;</code>
+     * <code>optional bool directPlaybackFlag = 3;</code>
      */
-    public long getTimestamp() {
-      return timestamp_;
+    public boolean getDirectPlaybackFlag() {
+      return directPlaybackFlag_;
     }
 
-    // optional .open_audio.ElectionMessage.ElectionMessageType type = 4;
-    public static final int TYPE_FIELD_NUMBER = 4;
-    private org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType type_;
+    // repeated .open_audio.KVType meta = 5;
+    public static final int META_FIELD_NUMBER = 5;
+    private java.util.List<org.bdawg.open_audio.OpenAudioProtos.KVType> meta_;
     /**
-     * <code>optional .open_audio.ElectionMessage.ElectionMessageType type = 4;</code>
+     * <code>repeated .open_audio.KVType meta = 5;</code>
      */
-    public boolean hasType() {
+    public java.util.List<org.bdawg.open_audio.OpenAudioProtos.KVType> getMetaList() {
+      return meta_;
+    }
+    /**
+     * <code>repeated .open_audio.KVType meta = 5;</code>
+     */
+    public java.util.List<? extends org.bdawg.open_audio.OpenAudioProtos.KVTypeOrBuilder> 
+        getMetaOrBuilderList() {
+      return meta_;
+    }
+    /**
+     * <code>repeated .open_audio.KVType meta = 5;</code>
+     */
+    public int getMetaCount() {
+      return meta_.size();
+    }
+    /**
+     * <code>repeated .open_audio.KVType meta = 5;</code>
+     */
+    public org.bdawg.open_audio.OpenAudioProtos.KVType getMeta(int index) {
+      return meta_.get(index);
+    }
+    /**
+     * <code>repeated .open_audio.KVType meta = 5;</code>
+     */
+    public org.bdawg.open_audio.OpenAudioProtos.KVTypeOrBuilder getMetaOrBuilder(
+        int index) {
+      return meta_.get(index);
+    }
+
+    // optional string dl_type = 6;
+    public static final int DL_TYPE_FIELD_NUMBER = 6;
+    private java.lang.Object dlType_;
+    /**
+     * <code>optional string dl_type = 6;</code>
+     */
+    public boolean hasDlType() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional .open_audio.ElectionMessage.ElectionMessageType type = 4;</code>
+     * <code>optional string dl_type = 6;</code>
      */
-    public org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType getType() {
-      return type_;
+    public java.lang.String getDlType() {
+      java.lang.Object ref = dlType_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          dlType_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string dl_type = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDlTypeBytes() {
+      java.lang.Object ref = dlType_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        dlType_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private void initFields() {
-      nodeId_ = "";
-      offer_ = 0;
-      timestamp_ = 0L;
-      type_ = org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType.OFFER;
+      subIndex_ = 0;
+      masterId_ = "";
+      directPlaybackFlag_ = false;
+      meta_ = java.util.Collections.emptyList();
+      dlType_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -4725,16 +3730,19 @@ public final class OpenAudioProtos {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNodeIdBytes());
+        output.writeInt32(1, subIndex_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, offer_);
+        output.writeBytes(2, getMasterIdBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt64(3, timestamp_);
+        output.writeBool(3, directPlaybackFlag_);
+      }
+      for (int i = 0; i < meta_.size(); i++) {
+        output.writeMessage(5, meta_.get(i));
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeEnum(4, type_.getNumber());
+        output.writeBytes(6, getDlTypeBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -4747,19 +3755,23 @@ public final class OpenAudioProtos {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNodeIdBytes());
+          .computeInt32Size(1, subIndex_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, offer_);
+          .computeBytesSize(2, getMasterIdBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(3, timestamp_);
+          .computeBoolSize(3, directPlaybackFlag_);
+      }
+      for (int i = 0; i < meta_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, meta_.get(i));
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(4, type_.getNumber());
+          .computeBytesSize(6, getDlTypeBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -4773,53 +3785,53 @@ public final class OpenAudioProtos {
       return super.writeReplace();
     }
 
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseFrom(
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseFrom(
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseFrom(byte[] data)
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseFrom(
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseFrom(java.io.InputStream input)
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseFrom(
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseDelimitedFrom(java.io.InputStream input)
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseDelimitedFrom(
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseFrom(
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parseFrom(
+    public static org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4828,7 +3840,7 @@ public final class OpenAudioProtos {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.bdawg.open_audio.OpenAudioProtos.ElectionMessage prototype) {
+    public static Builder newBuilder(org.bdawg.open_audio.OpenAudioProtos.SinglePBItem prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -4840,24 +3852,24 @@ public final class OpenAudioProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code open_audio.ElectionMessage}
+     * Protobuf type {@code open_audio.SinglePBItem}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.bdawg.open_audio.OpenAudioProtos.ElectionMessageOrBuilder {
+       implements org.bdawg.open_audio.OpenAudioProtos.SinglePBItemOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_ElectionMessage_descriptor;
+        return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_SinglePBItem_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_ElectionMessage_fieldAccessorTable
+        return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_SinglePBItem_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.class, org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.Builder.class);
+                org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.class, org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.Builder.class);
       }
 
-      // Construct using org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.newBuilder()
+      // Construct using org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -4869,6 +3881,7 @@ public final class OpenAudioProtos {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getMetaFieldBuilder();
         }
       }
       private static Builder create() {
@@ -4877,14 +3890,20 @@ public final class OpenAudioProtos {
 
       public Builder clear() {
         super.clear();
-        nodeId_ = "";
+        subIndex_ = 0;
         bitField0_ = (bitField0_ & ~0x00000001);
-        offer_ = 0;
+        masterId_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        timestamp_ = 0L;
+        directPlaybackFlag_ = false;
         bitField0_ = (bitField0_ & ~0x00000004);
-        type_ = org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType.OFFER;
-        bitField0_ = (bitField0_ & ~0x00000008);
+        if (metaBuilder_ == null) {
+          meta_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          metaBuilder_.clear();
+        }
+        dlType_ = "";
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -4894,70 +3913,107 @@ public final class OpenAudioProtos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_ElectionMessage_descriptor;
+        return org.bdawg.open_audio.OpenAudioProtos.internal_static_open_audio_SinglePBItem_descriptor;
       }
 
-      public org.bdawg.open_audio.OpenAudioProtos.ElectionMessage getDefaultInstanceForType() {
-        return org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.getDefaultInstance();
+      public org.bdawg.open_audio.OpenAudioProtos.SinglePBItem getDefaultInstanceForType() {
+        return org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.getDefaultInstance();
       }
 
-      public org.bdawg.open_audio.OpenAudioProtos.ElectionMessage build() {
-        org.bdawg.open_audio.OpenAudioProtos.ElectionMessage result = buildPartial();
+      public org.bdawg.open_audio.OpenAudioProtos.SinglePBItem build() {
+        org.bdawg.open_audio.OpenAudioProtos.SinglePBItem result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public org.bdawg.open_audio.OpenAudioProtos.ElectionMessage buildPartial() {
-        org.bdawg.open_audio.OpenAudioProtos.ElectionMessage result = new org.bdawg.open_audio.OpenAudioProtos.ElectionMessage(this);
+      public org.bdawg.open_audio.OpenAudioProtos.SinglePBItem buildPartial() {
+        org.bdawg.open_audio.OpenAudioProtos.SinglePBItem result = new org.bdawg.open_audio.OpenAudioProtos.SinglePBItem(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.nodeId_ = nodeId_;
+        result.subIndex_ = subIndex_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.offer_ = offer_;
+        result.masterId_ = masterId_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.timestamp_ = timestamp_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+        result.directPlaybackFlag_ = directPlaybackFlag_;
+        if (metaBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            meta_ = java.util.Collections.unmodifiableList(meta_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.meta_ = meta_;
+        } else {
+          result.meta_ = metaBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.type_ = type_;
+        result.dlType_ = dlType_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.bdawg.open_audio.OpenAudioProtos.ElectionMessage) {
-          return mergeFrom((org.bdawg.open_audio.OpenAudioProtos.ElectionMessage)other);
+        if (other instanceof org.bdawg.open_audio.OpenAudioProtos.SinglePBItem) {
+          return mergeFrom((org.bdawg.open_audio.OpenAudioProtos.SinglePBItem)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.bdawg.open_audio.OpenAudioProtos.ElectionMessage other) {
-        if (other == org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.getDefaultInstance()) return this;
-        if (other.hasNodeId()) {
-          bitField0_ |= 0x00000001;
-          nodeId_ = other.nodeId_;
+      public Builder mergeFrom(org.bdawg.open_audio.OpenAudioProtos.SinglePBItem other) {
+        if (other == org.bdawg.open_audio.OpenAudioProtos.SinglePBItem.getDefaultInstance()) return this;
+        if (other.hasSubIndex()) {
+          setSubIndex(other.getSubIndex());
+        }
+        if (other.hasMasterId()) {
+          bitField0_ |= 0x00000002;
+          masterId_ = other.masterId_;
           onChanged();
         }
-        if (other.hasOffer()) {
-          setOffer(other.getOffer());
+        if (other.hasDirectPlaybackFlag()) {
+          setDirectPlaybackFlag(other.getDirectPlaybackFlag());
         }
-        if (other.hasTimestamp()) {
-          setTimestamp(other.getTimestamp());
+        if (metaBuilder_ == null) {
+          if (!other.meta_.isEmpty()) {
+            if (meta_.isEmpty()) {
+              meta_ = other.meta_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureMetaIsMutable();
+              meta_.addAll(other.meta_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.meta_.isEmpty()) {
+            if (metaBuilder_.isEmpty()) {
+              metaBuilder_.dispose();
+              metaBuilder_ = null;
+              meta_ = other.meta_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              metaBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getMetaFieldBuilder() : null;
+            } else {
+              metaBuilder_.addAllMessages(other.meta_);
+            }
+          }
         }
-        if (other.hasType()) {
-          setType(other.getType());
+        if (other.hasDlType()) {
+          bitField0_ |= 0x00000010;
+          dlType_ = other.dlType_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4971,11 +4027,11 @@ public final class OpenAudioProtos {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.bdawg.open_audio.OpenAudioProtos.ElectionMessage parsedMessage = null;
+        org.bdawg.open_audio.OpenAudioProtos.SinglePBItem parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.bdawg.open_audio.OpenAudioProtos.ElectionMessage) e.getUnfinishedMessage();
+          parsedMessage = (org.bdawg.open_audio.OpenAudioProtos.SinglePBItem) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -4986,191 +4042,469 @@ public final class OpenAudioProtos {
       }
       private int bitField0_;
 
-      // optional string node_id = 1;
-      private java.lang.Object nodeId_ = "";
+      // optional int32 subIndex = 1;
+      private int subIndex_ ;
       /**
-       * <code>optional string node_id = 1;</code>
+       * <code>optional int32 subIndex = 1;</code>
        */
-      public boolean hasNodeId() {
+      public boolean hasSubIndex() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional string node_id = 1;</code>
+       * <code>optional int32 subIndex = 1;</code>
        */
-      public java.lang.String getNodeId() {
-        java.lang.Object ref = nodeId_;
+      public int getSubIndex() {
+        return subIndex_;
+      }
+      /**
+       * <code>optional int32 subIndex = 1;</code>
+       */
+      public Builder setSubIndex(int value) {
+        bitField0_ |= 0x00000001;
+        subIndex_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 subIndex = 1;</code>
+       */
+      public Builder clearSubIndex() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        subIndex_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional string masterId = 2;
+      private java.lang.Object masterId_ = "";
+      /**
+       * <code>optional string masterId = 2;</code>
+       */
+      public boolean hasMasterId() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string masterId = 2;</code>
+       */
+      public java.lang.String getMasterId() {
+        java.lang.Object ref = masterId_;
         if (!(ref instanceof java.lang.String)) {
           java.lang.String s = ((com.google.protobuf.ByteString) ref)
               .toStringUtf8();
-          nodeId_ = s;
+          masterId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string node_id = 1;</code>
+       * <code>optional string masterId = 2;</code>
        */
       public com.google.protobuf.ByteString
-          getNodeIdBytes() {
-        java.lang.Object ref = nodeId_;
+          getMasterIdBytes() {
+        java.lang.Object ref = masterId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          nodeId_ = b;
+          masterId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string node_id = 1;</code>
+       * <code>optional string masterId = 2;</code>
        */
-      public Builder setNodeId(
+      public Builder setMasterId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
-        nodeId_ = value;
+  bitField0_ |= 0x00000002;
+        masterId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string node_id = 1;</code>
+       * <code>optional string masterId = 2;</code>
        */
-      public Builder clearNodeId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        nodeId_ = getDefaultInstance().getNodeId();
+      public Builder clearMasterId() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        masterId_ = getDefaultInstance().getMasterId();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string node_id = 1;</code>
+       * <code>optional string masterId = 2;</code>
        */
-      public Builder setNodeIdBytes(
+      public Builder setMasterIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
-        nodeId_ = value;
+  bitField0_ |= 0x00000002;
+        masterId_ = value;
         onChanged();
         return this;
       }
 
-      // optional int32 offer = 2;
-      private int offer_ ;
+      // optional bool directPlaybackFlag = 3;
+      private boolean directPlaybackFlag_ ;
       /**
-       * <code>optional int32 offer = 2;</code>
+       * <code>optional bool directPlaybackFlag = 3;</code>
        */
-      public boolean hasOffer() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>optional int32 offer = 2;</code>
-       */
-      public int getOffer() {
-        return offer_;
-      }
-      /**
-       * <code>optional int32 offer = 2;</code>
-       */
-      public Builder setOffer(int value) {
-        bitField0_ |= 0x00000002;
-        offer_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional int32 offer = 2;</code>
-       */
-      public Builder clearOffer() {
-        bitField0_ = (bitField0_ & ~0x00000002);
-        offer_ = 0;
-        onChanged();
-        return this;
-      }
-
-      // optional int64 timestamp = 3;
-      private long timestamp_ ;
-      /**
-       * <code>optional int64 timestamp = 3;</code>
-       */
-      public boolean hasTimestamp() {
+      public boolean hasDirectPlaybackFlag() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional int64 timestamp = 3;</code>
+       * <code>optional bool directPlaybackFlag = 3;</code>
        */
-      public long getTimestamp() {
-        return timestamp_;
+      public boolean getDirectPlaybackFlag() {
+        return directPlaybackFlag_;
       }
       /**
-       * <code>optional int64 timestamp = 3;</code>
+       * <code>optional bool directPlaybackFlag = 3;</code>
        */
-      public Builder setTimestamp(long value) {
+      public Builder setDirectPlaybackFlag(boolean value) {
         bitField0_ |= 0x00000004;
-        timestamp_ = value;
+        directPlaybackFlag_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int64 timestamp = 3;</code>
+       * <code>optional bool directPlaybackFlag = 3;</code>
        */
-      public Builder clearTimestamp() {
+      public Builder clearDirectPlaybackFlag() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        timestamp_ = 0L;
+        directPlaybackFlag_ = false;
         onChanged();
         return this;
       }
 
-      // optional .open_audio.ElectionMessage.ElectionMessageType type = 4;
-      private org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType type_ = org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType.OFFER;
-      /**
-       * <code>optional .open_audio.ElectionMessage.ElectionMessageType type = 4;</code>
-       */
-      public boolean hasType() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+      // repeated .open_audio.KVType meta = 5;
+      private java.util.List<org.bdawg.open_audio.OpenAudioProtos.KVType> meta_ =
+        java.util.Collections.emptyList();
+      private void ensureMetaIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          meta_ = new java.util.ArrayList<org.bdawg.open_audio.OpenAudioProtos.KVType>(meta_);
+          bitField0_ |= 0x00000008;
+         }
       }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          org.bdawg.open_audio.OpenAudioProtos.KVType, org.bdawg.open_audio.OpenAudioProtos.KVType.Builder, org.bdawg.open_audio.OpenAudioProtos.KVTypeOrBuilder> metaBuilder_;
+
       /**
-       * <code>optional .open_audio.ElectionMessage.ElectionMessageType type = 4;</code>
+       * <code>repeated .open_audio.KVType meta = 5;</code>
        */
-      public org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType getType() {
-        return type_;
-      }
-      /**
-       * <code>optional .open_audio.ElectionMessage.ElectionMessageType type = 4;</code>
-       */
-      public Builder setType(org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType value) {
-        if (value == null) {
-          throw new NullPointerException();
+      public java.util.List<org.bdawg.open_audio.OpenAudioProtos.KVType> getMetaList() {
+        if (metaBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(meta_);
+        } else {
+          return metaBuilder_.getMessageList();
         }
-        bitField0_ |= 0x00000008;
-        type_ = value;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public int getMetaCount() {
+        if (metaBuilder_ == null) {
+          return meta_.size();
+        } else {
+          return metaBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public org.bdawg.open_audio.OpenAudioProtos.KVType getMeta(int index) {
+        if (metaBuilder_ == null) {
+          return meta_.get(index);
+        } else {
+          return metaBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public Builder setMeta(
+          int index, org.bdawg.open_audio.OpenAudioProtos.KVType value) {
+        if (metaBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMetaIsMutable();
+          meta_.set(index, value);
+          onChanged();
+        } else {
+          metaBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public Builder setMeta(
+          int index, org.bdawg.open_audio.OpenAudioProtos.KVType.Builder builderForValue) {
+        if (metaBuilder_ == null) {
+          ensureMetaIsMutable();
+          meta_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          metaBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public Builder addMeta(org.bdawg.open_audio.OpenAudioProtos.KVType value) {
+        if (metaBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMetaIsMutable();
+          meta_.add(value);
+          onChanged();
+        } else {
+          metaBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public Builder addMeta(
+          int index, org.bdawg.open_audio.OpenAudioProtos.KVType value) {
+        if (metaBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureMetaIsMutable();
+          meta_.add(index, value);
+          onChanged();
+        } else {
+          metaBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public Builder addMeta(
+          org.bdawg.open_audio.OpenAudioProtos.KVType.Builder builderForValue) {
+        if (metaBuilder_ == null) {
+          ensureMetaIsMutable();
+          meta_.add(builderForValue.build());
+          onChanged();
+        } else {
+          metaBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public Builder addMeta(
+          int index, org.bdawg.open_audio.OpenAudioProtos.KVType.Builder builderForValue) {
+        if (metaBuilder_ == null) {
+          ensureMetaIsMutable();
+          meta_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          metaBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public Builder addAllMeta(
+          java.lang.Iterable<? extends org.bdawg.open_audio.OpenAudioProtos.KVType> values) {
+        if (metaBuilder_ == null) {
+          ensureMetaIsMutable();
+          super.addAll(values, meta_);
+          onChanged();
+        } else {
+          metaBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public Builder clearMeta() {
+        if (metaBuilder_ == null) {
+          meta_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          metaBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public Builder removeMeta(int index) {
+        if (metaBuilder_ == null) {
+          ensureMetaIsMutable();
+          meta_.remove(index);
+          onChanged();
+        } else {
+          metaBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public org.bdawg.open_audio.OpenAudioProtos.KVType.Builder getMetaBuilder(
+          int index) {
+        return getMetaFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public org.bdawg.open_audio.OpenAudioProtos.KVTypeOrBuilder getMetaOrBuilder(
+          int index) {
+        if (metaBuilder_ == null) {
+          return meta_.get(index);  } else {
+          return metaBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public java.util.List<? extends org.bdawg.open_audio.OpenAudioProtos.KVTypeOrBuilder> 
+           getMetaOrBuilderList() {
+        if (metaBuilder_ != null) {
+          return metaBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(meta_);
+        }
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public org.bdawg.open_audio.OpenAudioProtos.KVType.Builder addMetaBuilder() {
+        return getMetaFieldBuilder().addBuilder(
+            org.bdawg.open_audio.OpenAudioProtos.KVType.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public org.bdawg.open_audio.OpenAudioProtos.KVType.Builder addMetaBuilder(
+          int index) {
+        return getMetaFieldBuilder().addBuilder(
+            index, org.bdawg.open_audio.OpenAudioProtos.KVType.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .open_audio.KVType meta = 5;</code>
+       */
+      public java.util.List<org.bdawg.open_audio.OpenAudioProtos.KVType.Builder> 
+           getMetaBuilderList() {
+        return getMetaFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          org.bdawg.open_audio.OpenAudioProtos.KVType, org.bdawg.open_audio.OpenAudioProtos.KVType.Builder, org.bdawg.open_audio.OpenAudioProtos.KVTypeOrBuilder> 
+          getMetaFieldBuilder() {
+        if (metaBuilder_ == null) {
+          metaBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              org.bdawg.open_audio.OpenAudioProtos.KVType, org.bdawg.open_audio.OpenAudioProtos.KVType.Builder, org.bdawg.open_audio.OpenAudioProtos.KVTypeOrBuilder>(
+                  meta_,
+                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  getParentForChildren(),
+                  isClean());
+          meta_ = null;
+        }
+        return metaBuilder_;
+      }
+
+      // optional string dl_type = 6;
+      private java.lang.Object dlType_ = "";
+      /**
+       * <code>optional string dl_type = 6;</code>
+       */
+      public boolean hasDlType() {
+        return ((bitField0_ & 0x00000010) == 0x00000010);
+      }
+      /**
+       * <code>optional string dl_type = 6;</code>
+       */
+      public java.lang.String getDlType() {
+        java.lang.Object ref = dlType_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          dlType_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string dl_type = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getDlTypeBytes() {
+        java.lang.Object ref = dlType_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          dlType_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string dl_type = 6;</code>
+       */
+      public Builder setDlType(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        dlType_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional .open_audio.ElectionMessage.ElectionMessageType type = 4;</code>
+       * <code>optional string dl_type = 6;</code>
        */
-      public Builder clearType() {
-        bitField0_ = (bitField0_ & ~0x00000008);
-        type_ = org.bdawg.open_audio.OpenAudioProtos.ElectionMessage.ElectionMessageType.OFFER;
+      public Builder clearDlType() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        dlType_ = getDefaultInstance().getDlType();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string dl_type = 6;</code>
+       */
+      public Builder setDlTypeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000010;
+        dlType_ = value;
         onChanged();
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:open_audio.ElectionMessage)
+      // @@protoc_insertion_point(builder_scope:open_audio.SinglePBItem)
     }
 
     static {
-      defaultInstance = new ElectionMessage(true);
+      defaultInstance = new SinglePBItem(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:open_audio.ElectionMessage)
+    // @@protoc_insertion_point(class_scope:open_audio.SinglePBItem)
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
@@ -5194,15 +4528,10 @@ public final class OpenAudioProtos {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_open_audio_ClientCommand_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_open_audio_PlayItem_descriptor;
+    internal_static_open_audio_SinglePBItem_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_open_audio_PlayItem_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_open_audio_ElectionMessage_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_open_audio_ElectionMessage_fieldAccessorTable;
+      internal_static_open_audio_SinglePBItem_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5220,26 +4549,18 @@ public final class OpenAudioProtos {
       "LAYABLE\020\000\"g\n\016MasterPlayable\022\024\n\014playbackT" +
       "ype\030\001 \001(\t\022 \n\004meta\030\002 \003(\0132\022.open_audio.KVT" +
       "ype\022\n\n\002id\030\003 \001(\t\022\021\n\tclient_id\030\004 \003(\t\"$\n\006KV" +
-      "Type\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\365\001\n\rCli" +
+      "Type\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t\"\371\001\n\rCli" +
       "entCommand\022=\n\rclient_action\030\001 \001(\0162&.open",
       "_audio.ClientCommand.ClientAction\022\022\n\nnew" +
-      "_volume\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\003\022\"\n\004item" +
-      "\030\004 \001(\0132\024.open_audio.PlayItem\"Z\n\014ClientAc" +
-      "tion\022\010\n\004PLAY\020\000\022\t\n\005PAUSE\020\001\022\010\n\004STOP\020\002\022\n\n\006V" +
-      "OLUME\020\003\022\014\n\010DOWNLOAD\020\004\022\021\n\rHEARTBEAT_REQ\020\005" +
-      "\"\304\001\n\010PlayItem\022\022\n\nitem_bytes\030\001 \001(\014\022\017\n\007ite" +
-      "m_id\030\002 \001(\t\022\020\n\010item_uri\030\003 \001(\t\022\025\n\rtorrent_" +
-      "bytes\030\004 \001(\014\0224\n\tplay_type\030\005 \001(\0162!.open_au" +
-      "dio.PlayItem.PlayItemType\"4\n\014PlayItemTyp" +
-      "e\022\t\n\005BYTES\020\000\022\014\n\010INET_URI\020\001\022\013\n\007TORRENT\020\002\"",
-      "\373\001\n\017ElectionMessage\022\017\n\007node_id\030\001 \001(\t\022\r\n\005" +
-      "offer\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\003\022=\n\004type\030\004" +
-      " \001(\0162/.open_audio.ElectionMessage.Electi" +
-      "onMessageType\"v\n\023ElectionMessageType\022\t\n\005" +
-      "OFFER\020\000\022\r\n\tMASTER_HB\020\001\022\023\n\017NOTIFY_ELECTIO" +
-      "N\020\002\022\r\n\tCLIENT_HB\020\003\022\r\n\tELECT_END\020\004\022\022\n\016ELE" +
-      "CT_CONFLICT\020\005B\'\n\024org.bdawg.open_audioB\017O" +
-      "penAudioProtos"
+      "_volume\030\002 \001(\005\022\021\n\ttimestamp\030\003 \001(\003\022&\n\004item" +
+      "\030\004 \001(\0132\030.open_audio.SinglePBItem\"Z\n\014Clie" +
+      "ntAction\022\010\n\004PLAY\020\000\022\t\n\005PAUSE\020\001\022\010\n\004STOP\020\002\022" +
+      "\n\n\006VOLUME\020\003\022\014\n\010DOWNLOAD\020\004\022\021\n\rHEARTBEAT_R" +
+      "EQ\020\005\"\201\001\n\014SinglePBItem\022\020\n\010subIndex\030\001 \001(\005\022" +
+      "\020\n\010masterId\030\002 \001(\t\022\032\n\022directPlaybackFlag\030" +
+      "\003 \001(\010\022 \n\004meta\030\005 \003(\0132\022.open_audio.KVType\022" +
+      "\017\n\007dl_type\030\006 \001(\tB\'\n\024org.bdawg.open_audio" +
+      "B\017OpenAudioProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -5270,18 +4591,12 @@ public final class OpenAudioProtos {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_open_audio_ClientCommand_descriptor,
               new java.lang.String[] { "ClientAction", "NewVolume", "Timestamp", "Item", });
-          internal_static_open_audio_PlayItem_descriptor =
+          internal_static_open_audio_SinglePBItem_descriptor =
             getDescriptor().getMessageTypes().get(4);
-          internal_static_open_audio_PlayItem_fieldAccessorTable = new
+          internal_static_open_audio_SinglePBItem_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_open_audio_PlayItem_descriptor,
-              new java.lang.String[] { "ItemBytes", "ItemId", "ItemUri", "TorrentBytes", "PlayType", });
-          internal_static_open_audio_ElectionMessage_descriptor =
-            getDescriptor().getMessageTypes().get(5);
-          internal_static_open_audio_ElectionMessage_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_open_audio_ElectionMessage_descriptor,
-              new java.lang.String[] { "NodeId", "Offer", "Timestamp", "Type", });
+              internal_static_open_audio_SinglePBItem_descriptor,
+              new java.lang.String[] { "SubIndex", "MasterId", "DirectPlaybackFlag", "Meta", "DlType", });
           return null;
         }
       };

@@ -6,8 +6,34 @@ import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.bdawg.open_audio.OpenAudioProtos.KVType;
 
 public abstract class Utils {
+	
+	
+	public final class OAConstants{
+
+	    public static final String NOT_OWNED_STRING = "NOT_OWNED";
+
+	    public static final String DL_TYPE_SIMPLE_URL = "GET_URL";
+	    public static final String DL_TYPE_TORRENT = "TORRENT";
+	    public static final String DL_TYPE_FS = "FS";
+
+	    public static final String META_SIMPLE_URL_LOCATION_KEY = "URI";
+
+
+
+	    public static final String BASE_TOPIC = "/home/breland/pi_audio/";
+
+	    public static final String WS_HOST = "http://oa.bdawg.org/";
+
+	}
 	
 	private static String eMac = null;
 	private static InetAddress eLocalAddress = null;
@@ -51,7 +77,21 @@ public abstract class Utils {
 		return eLocalAddress;
 	}
 	
-	public static String getNotOwnedString(){
-    	return "NOT_OWNED";
-    }
+	public static Map<String,String> kvListToMap(List<KVType> allKVs){
+		Map<String,String> tr = new HashMap<String,String>();
+		for (KVType kv : allKVs){
+			if (!tr.containsKey(kv.getKey())){
+				tr.put(kv.getKey(), kv.getValue());
+			}
+		}
+		return tr;
+	}
+	
+	public static List<KVType> mapToKVList(Map<String, String> in){
+		List<KVType> tr = new ArrayList<KVType>();
+		for (Entry<String,String> entry : in.entrySet()){
+			tr.add(KVType.newBuilder().setKey(entry.getKey()).setValue(entry.getValue()).build());
+		}
+		return tr;
+	}
 }

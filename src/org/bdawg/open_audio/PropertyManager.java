@@ -15,6 +15,7 @@ public class PropertyManager {
 		MQTT_BASE_TOPIC,
 		MQTT_SCHEME,
 		NTP_HOST,
+		WS_HOST
 	}
 	
 	private PropertyManager() throws IOException{

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 import org.apache.log4j.BasicConfigurator;
+import org.bdawg.open_audio.Utils.OAConstants;
 import org.bdawg.open_audio.interfaces.ISender;
 import org.bdawg.open_audio.mqtt.MQTTManager;
 import org.bdawg.open_audio.sntp.TimeManager;
@@ -17,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import com.google.common.util.concurrent.RateLimiter;
 
 public class Runner {
+	
+	static String myMacAddress = null;
 
 	public static void main(String[] args) throws MqttException,
 			InterruptedException, JsonParseException, JsonMappingException,
@@ -24,7 +27,6 @@ public class Runner {
 		BasicConfigurator.configure();
 		Logger logger = LoggerFactory.getLogger(Runner.class);
 		logger.debug("Starting...");
-		String myMacAddress = null;
 		RateLimiter limit = RateLimiter.create(2);
 		logger.debug("Getting MAC");
 		do{
@@ -37,19 +39,11 @@ public class Runner {
 		} while (myMacAddress == null);
 		logger.debug("Got MAC");
 		
+		
+		VLCManager vlcMgr = new VLCManager();
 
-		Runnable empty = new Runnable() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				
-			}
-		};
-		VLCManager vlcMgr = new VLCManager(empty,empty);
-
-		final String baseTopic = "/home/breland/pi_audio/";
-		final String clientTopic = baseTopic + myMacAddress;
+		
+		final String clientTopic = OAConstants.BASE_TOPIC + myMacAddress;
 		final String masterClientTopic = clientTopic + "/master";
 		
 		logger.debug("Starting NTP");
@@ -73,8 +67,10 @@ public class Runner {
 		});
 		logger.debug("Subscribing to ClientTopic");
 		MQTTManager.getMQInstance().subscribe(clientTopic, sm);
+		logger.debug("Initing Slave Mgr");
 		sm.init();
 		
+		logger.debug("Starting master manager");
 		final MasterManager mm = new MasterManager(new ISender(){
 			@Override
 			public void sendToPeers(ByteBuffer message) {
@@ -87,9 +83,34 @@ public class Runner {
 				
 			}
 		});
+		logger.debug("Subbing to master topic");
 		MQTTManager.getMQInstance().subscribe(masterClientTopic, mm);
-		logger.debug("Startup completed.");
+		logger.debug("Initing master manager.");
 		mm.init();
+		logger.debug("Setting complete callback");
+		sm.setEndedRunnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (sm.getCurrentItem().getMasterId().equals(Runner.myMacAddress)){
+					mm.singlePlayableCallback();
+				}
+				
+			}
+		});
+		sm.setAboutToEndRunnable(new Runnable() {
+			
+			@Override
+			public void run() {
+				if (sm.getCurrentItem().getMasterId().equals(Runner.myMacAddress)){
+					mm.aboutToEndPlayableCallback();
+				}
+				
+			}
+		});
+		
+		logger.debug("Startup completed.");
+		
 		
 		//This thread is for timeing precision. Not just to spawn another thread, I promise.
 		Thread sleepers = new Thread(new Runnable() {
@@ -109,7 +130,9 @@ public class Runner {
 		});
 		sleepers.start();
 		
+		
 		try {
+			logger.debug("Main thread joining. Bye!");
 			Thread.currentThread().join();
 		} catch (InterruptedException ex) {
 			Thread.interrupted();
