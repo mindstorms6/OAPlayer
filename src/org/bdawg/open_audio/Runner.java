@@ -50,6 +50,7 @@ public class Runner {
 
 		final String baseTopic = "/home/breland/pi_audio/";
 		final String clientTopic = baseTopic + myMacAddress;
+		final String masterClientTopic = clientTopic + "/master";
 		
 		logger.debug("Starting NTP");
 		// Start the NTP manager
@@ -64,16 +65,33 @@ public class Runner {
 			public void sendToPeers(ByteBuffer message) {
 				MQTTManager.getMQInstance().sendMessage(message, clientTopic);
 			}
+			@Override
+			public void sendToTopic(ByteBuffer message, String topic) {
+				MQTTManager.getMQInstance().sendMessage(message, topic);
+				
+			}
 		});
 		logger.debug("Subscribing to ClientTopic");
 		MQTTManager.getMQInstance().subscribe(clientTopic, sm);
-		
-		
-		
 		sm.init();
 		
+		final MasterManager mm = new MasterManager(new ISender(){
+			@Override
+			public void sendToPeers(ByteBuffer message) {
+				//no op for this
+				
+			}
+			@Override
+			public void sendToTopic(ByteBuffer message, String topic) {
+				MQTTManager.getMQInstance().sendMessage(message, topic);
+				
+			}
+		});
+		MQTTManager.getMQInstance().subscribe(masterClientTopic, mm);
 		logger.debug("Startup completed.");
+		mm.init();
 		
+		//This thread is for timeing precision. Not just to spawn another thread, I promise.
 		Thread sleepers = new Thread(new Runnable() {
 			
 			@Override
