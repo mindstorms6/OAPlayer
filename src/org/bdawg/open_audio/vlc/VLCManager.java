@@ -1,16 +1,14 @@
 package org.bdawg.open_audio.vlc;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
-import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import org.bdawg.open_audio.interfaces.IPlayable;
 import org.bdawg.open_audio.interfaces.IPlayer;
-import org.bdawg.open_audio.interfaces.ISinglePlayable;
 import org.bdawg.open_audio.sntp.TimeManager;
 import org.bdawg.open_audio.webObjects.Progress;
 import org.slf4j.Logger;
@@ -28,14 +26,15 @@ import com.sun.jna.NativeLibrary;
 
 public class VLCManager implements IPlayer {
 
-	private final Logger log = LoggerFactory.getLogger(VLCManager.class);
+	private static final Logger log = LoggerFactory.getLogger(VLCManager.class);
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 	private JFrame frame;
 	private boolean hasNotifiedAboutToEnd=false;
 	private Runnable aboutToEndRunnable;
 	private Runnable endCallback;
-	private JLabel label; 
+	private JLabel label;
 	private MediaPlayerEventListener listener = new MediaPlayerEventListener() {
+		
 
 		@Override
 		public void videoOutput(MediaPlayer mediaPlayer, int newCount) {
@@ -198,6 +197,7 @@ public class VLCManager implements IPlayer {
 		@Override
 		public void error(MediaPlayer mediaPlayer) {
 			// TODO Auto-generated method stub
+			log.warn("SOmething went wrong");
 
 		}
 
@@ -244,15 +244,16 @@ public class VLCManager implements IPlayer {
 		this.aboutToEndRunnable = aboutToEndCallback;
 		frame = new JFrame("OpenAudio");
 		label = new JLabel("Fetching data");
-		label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
-		label.setForeground(Color.white);
-		
+        label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+        label.setForeground(Color.white);
+        label.setBackground(Color.black);
+		label.setOpaque(true);
+        
 		frame.setUndecorated(true);
 		mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
-
-		frame.setContentPane(mediaPlayerComponent);
-		mediaPlayerComponent.add(label);
-		
+		frame.setLayout(new BorderLayout());
+		frame.add(label, BorderLayout.SOUTH);
+		frame.add(mediaPlayerComponent, BorderLayout.CENTER);
 		Rectangle screenBounds = java.awt.GraphicsEnvironment
 				.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 				.getDefaultConfiguration().getBounds();
@@ -268,7 +269,6 @@ public class VLCManager implements IPlayer {
 
 		mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(
 				listener);
-
 	}
 	
 	@Override
@@ -292,6 +292,7 @@ public class VLCManager implements IPlayer {
 
 	@Override
 	public void play(final long ntpTime, String pathToPlay) {
+		log.debug("Attemping to start playback of " + pathToPlay);
 		MediaPlayerEventListener timerFixer = new MediaPlayerEventListener() {
 
 			@Override
@@ -362,15 +363,11 @@ public class VLCManager implements IPlayer {
 				} else if (diff < 0) {
 					// early, wait
 					mediaPlayer.pause();
-					try {
-						Thread.sleep(diff * -1);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} finally {
-						mediaPlayer.pause();
+					while (TimeManager.getTMInstance().getCurrentTimeMillis() - ntpTime < 0){
+						
 					}
-
+					mediaPlayer.pause();
+					
 				}
 				mediaPlayer.removeMediaPlayerEventListener(this);
 
@@ -538,9 +535,13 @@ public class VLCManager implements IPlayer {
 	}
 
 	@Override
+	public boolean isPlaying() {
+		return this.mediaPlayerComponent.getMediaPlayer().isPlaying();
+	};
+	
+	@Override
 	public void setOverlay(String overlay) {
-		this.label.setText(overlay);
-		
+		  this.label.setText(overlay);
 	}
 	
 	@Override

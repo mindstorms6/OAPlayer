@@ -98,6 +98,8 @@ public class SlaveManager implements ISimpleMQCallback {
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
 			logger.warn("Invalid message came across the wire!", e);
+		} catch (IOException ioex){
+			logger.warn("Filemanager failed to download");
 		}
 	}
 

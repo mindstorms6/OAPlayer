@@ -3433,6 +3433,21 @@ public final class OpenAudioProtos {
      */
     com.google.protobuf.ByteString
         getDlTypeBytes();
+
+    // optional string owningPBId = 7;
+    /**
+     * <code>optional string owningPBId = 7;</code>
+     */
+    boolean hasOwningPBId();
+    /**
+     * <code>optional string owningPBId = 7;</code>
+     */
+    java.lang.String getOwningPBId();
+    /**
+     * <code>optional string owningPBId = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getOwningPBIdBytes();
   }
   /**
    * Protobuf type {@code open_audio.SinglePBItem}
@@ -3511,6 +3526,11 @@ public final class OpenAudioProtos {
             case 50: {
               bitField0_ |= 0x00000008;
               dlType_ = input.readBytes();
+              break;
+            }
+            case 58: {
+              bitField0_ |= 0x00000010;
+              owningPBId_ = input.readBytes();
               break;
             }
           }
@@ -3710,12 +3730,56 @@ public final class OpenAudioProtos {
       }
     }
 
+    // optional string owningPBId = 7;
+    public static final int OWNINGPBID_FIELD_NUMBER = 7;
+    private java.lang.Object owningPBId_;
+    /**
+     * <code>optional string owningPBId = 7;</code>
+     */
+    public boolean hasOwningPBId() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional string owningPBId = 7;</code>
+     */
+    public java.lang.String getOwningPBId() {
+      java.lang.Object ref = owningPBId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          owningPBId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string owningPBId = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getOwningPBIdBytes() {
+      java.lang.Object ref = owningPBId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        owningPBId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       subIndex_ = 0;
       masterId_ = "";
       directPlaybackFlag_ = false;
       meta_ = java.util.Collections.emptyList();
       dlType_ = "";
+      owningPBId_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3743,6 +3807,9 @@ public final class OpenAudioProtos {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeBytes(6, getDlTypeBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeBytes(7, getOwningPBIdBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -3772,6 +3839,10 @@ public final class OpenAudioProtos {
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(6, getDlTypeBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(7, getOwningPBIdBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3904,6 +3975,8 @@ public final class OpenAudioProtos {
         }
         dlType_ = "";
         bitField0_ = (bitField0_ & ~0x00000010);
+        owningPBId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -3957,6 +4030,10 @@ public final class OpenAudioProtos {
           to_bitField0_ |= 0x00000008;
         }
         result.dlType_ = dlType_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.owningPBId_ = owningPBId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -4013,6 +4090,11 @@ public final class OpenAudioProtos {
         if (other.hasDlType()) {
           bitField0_ |= 0x00000010;
           dlType_ = other.dlType_;
+          onChanged();
+        }
+        if (other.hasOwningPBId()) {
+          bitField0_ |= 0x00000020;
+          owningPBId_ = other.owningPBId_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -4496,6 +4578,80 @@ public final class OpenAudioProtos {
         return this;
       }
 
+      // optional string owningPBId = 7;
+      private java.lang.Object owningPBId_ = "";
+      /**
+       * <code>optional string owningPBId = 7;</code>
+       */
+      public boolean hasOwningPBId() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional string owningPBId = 7;</code>
+       */
+      public java.lang.String getOwningPBId() {
+        java.lang.Object ref = owningPBId_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          owningPBId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string owningPBId = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getOwningPBIdBytes() {
+        java.lang.Object ref = owningPBId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          owningPBId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string owningPBId = 7;</code>
+       */
+      public Builder setOwningPBId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        owningPBId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string owningPBId = 7;</code>
+       */
+      public Builder clearOwningPBId() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        owningPBId_ = getDefaultInstance().getOwningPBId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string owningPBId = 7;</code>
+       */
+      public Builder setOwningPBIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        owningPBId_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:open_audio.SinglePBItem)
     }
 
@@ -4556,11 +4712,11 @@ public final class OpenAudioProtos {
       "\030\004 \001(\0132\030.open_audio.SinglePBItem\"Z\n\014Clie" +
       "ntAction\022\010\n\004PLAY\020\000\022\t\n\005PAUSE\020\001\022\010\n\004STOP\020\002\022" +
       "\n\n\006VOLUME\020\003\022\014\n\010DOWNLOAD\020\004\022\021\n\rHEARTBEAT_R" +
-      "EQ\020\005\"\201\001\n\014SinglePBItem\022\020\n\010subIndex\030\001 \001(\005\022" +
+      "EQ\020\005\"\225\001\n\014SinglePBItem\022\020\n\010subIndex\030\001 \001(\005\022" +
       "\020\n\010masterId\030\002 \001(\t\022\032\n\022directPlaybackFlag\030" +
       "\003 \001(\010\022 \n\004meta\030\005 \003(\0132\022.open_audio.KVType\022" +
-      "\017\n\007dl_type\030\006 \001(\tB\'\n\024org.bdawg.open_audio" +
-      "B\017OpenAudioProtos"
+      "\017\n\007dl_type\030\006 \001(\t\022\022\n\nowningPBId\030\007 \001(\tB\'\n\024" +
+      "org.bdawg.open_audioB\017OpenAudioProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -4596,7 +4752,7 @@ public final class OpenAudioProtos {
           internal_static_open_audio_SinglePBItem_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_open_audio_SinglePBItem_descriptor,
-              new java.lang.String[] { "SubIndex", "MasterId", "DirectPlaybackFlag", "Meta", "DlType", });
+              new java.lang.String[] { "SubIndex", "MasterId", "DirectPlaybackFlag", "Meta", "DlType", "OwningPBId", });
           return null;
         }
       };

@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -18,6 +19,14 @@ public abstract class HttpUtils {
 			throws ClientProtocolException, IOException {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		HttpGet httpGet = new HttpGet(URI);
+		return httpclient.execute(httpGet);
+
+	}
+	
+	public static HttpResponse executeHead(String URI)
+			throws ClientProtocolException, IOException {
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		HttpHead httpGet = new HttpHead(URI);
 		return httpclient.execute(httpGet);
 
 	}

@@ -94,15 +94,15 @@ public class TimeManager {
 
 	}
 
-	public synchronized long getSystemTimeOffsetNanos() {
+	public long getSystemTimeOffsetNanos() {
 		long tr;
-		synchronized (syncHandle) {
+		synchronized (this) {
 			tr = runningDelta;
 		}
 		return tr;
 	}
 
-	public synchronized long getCurrentTimeMillis() {
+	public long getCurrentTimeMillis() {
 		long millsOff = (long) (getSystemTimeOffsetNanos() * Math.pow(10, -6));
 		return System.currentTimeMillis() + millsOff;
 	}

@@ -54,6 +54,27 @@
 			<version>4.3.1</version>
 		</dependency>
 		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+			<version>4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.3</version>
+		</dependency>
+		<dependency>
 			<groupId>com.turn</groupId>
 			<artifactId>ttorrent</artifactId>
 			<version>1.4</version>
@@ -79,6 +100,7 @@
 			<artifactId>mqtt-client</artifactId>
 			<version>0.4.0</version>
 		</dependency>
+		
 	</dependencies>
 	<repositories>
 		<repository>

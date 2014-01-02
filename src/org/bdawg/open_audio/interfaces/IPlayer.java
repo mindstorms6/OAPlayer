@@ -9,4 +9,5 @@ public interface IPlayer {
 	public void setOverlay(String overlay);
 	public void setAboutToEndCallback(Runnable r);
 	public void setEndedCallback(Runnable r);
+	public boolean isPlaying();
 }

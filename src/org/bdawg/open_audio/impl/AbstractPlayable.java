@@ -13,11 +13,12 @@ public abstract class AbstractPlayable implements IPlayable {
 	List<String> clients;
 	Map<String,String> meta;
 	
-	public AbstractPlayable(String plyableId, String masterId, boolean needsDistribute, List<String> clients){
+	public AbstractPlayable(String plyableId, String masterId, boolean needsDistribute, List<String> clients, Map<String,String> meta){
 		this.masterId = masterId;
 		this.playableId = plyableId;
 		this.needsDistribute = needsDistribute;
 		this.clients = clients;
+		this.meta = meta;
 	}
 
 	@Override
@@ -39,5 +40,10 @@ public abstract class AbstractPlayable implements IPlayable {
 	public List<String> getClients() {
 		return this.clients;
 	}
+	
+	public Map<String, String> getMeta(){
+		return this.meta;
+	}
+	
 
 }

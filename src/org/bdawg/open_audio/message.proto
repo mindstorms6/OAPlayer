@@ -46,4 +46,5 @@ message SinglePBItem{
 	optional bool directPlaybackFlag = 3;
 	repeated KVType meta = 5;
 	optional string dl_type = 6;
+	optional string owningPBId = 7;
 }

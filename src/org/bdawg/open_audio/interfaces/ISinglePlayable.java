@@ -9,4 +9,5 @@ public interface ISinglePlayable {
 	public boolean canVLCPlayDirect();
 	public Map<String,String> getMeta();
 	public String getDLType();
+	public String getOwningPlayableId();
 }

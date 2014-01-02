@@ -138,7 +138,8 @@ public class MasterManager implements ISimpleMQCallback {
 										Utils.mapToKVList(toDownloadOnAll
 												.getMeta()))
 								.setDlType(
-										this.masterPlayable.getDownloadType()));
+										this.masterPlayable.getDownloadType())
+								.setOwningPBId(this.masterPlayable.getId()));
 
 		ByteBuffer toSend = ByteBuffer.wrap(b.build().toByteArray());
 		for (String clientID : this.masterPlayable.getClients()) {
@@ -160,7 +161,8 @@ public class MasterManager implements ISimpleMQCallback {
 								.addAllMeta(
 										Utils.mapToKVList(toPlayOnAll.getMeta()))
 								.setDlType(
-										this.masterPlayable.getDownloadType()))
+										this.masterPlayable.getDownloadType())
+								.setOwningPBId(this.masterPlayable.getId()))
 				.setTimestamp(
 						TimeManager.getTMInstance().getCurrentTimeMillis() + 5000);
 		ByteBuffer toSend = ByteBuffer.wrap(b.build().toByteArray());

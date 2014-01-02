@@ -13,6 +13,7 @@ public class SinglePlayable implements ISinglePlayable{
 	private String masterId;
 	private Map<String,String> meta;
 	private String dlType;
+	private String owningPBId;
 	
 	private SinglePlayable(){
 		
@@ -25,6 +26,7 @@ public class SinglePlayable implements ISinglePlayable{
 		tr.masterId = incoming.getItem().getMasterId();
 		tr.meta = Utils.kvListToMap(incoming.getItem().getMetaList());
 		tr.dlType = incoming.getItem().getDlType();
+		tr.owningPBId = incoming.getItem().getOwningPBId();
 		return tr;
 	}
 	
@@ -53,5 +55,10 @@ public class SinglePlayable implements ISinglePlayable{
 	@Override
 	public String getDLType() {
 		return this.dlType;
+	}
+
+	@Override
+	public String getOwningPlayableId() {
+		return this.owningPBId;
 	}
 }

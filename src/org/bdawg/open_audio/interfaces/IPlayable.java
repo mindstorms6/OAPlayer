@@ -1,6 +1,7 @@
 package org.bdawg.open_audio.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface IPlayable {
@@ -38,4 +39,6 @@ public interface IPlayable {
 	public List<String> getClients();
 	
 	public String getDownloadType();
+	
+	public Map<String,String> getMeta();
 }

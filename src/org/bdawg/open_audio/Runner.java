@@ -3,6 +3,8 @@ package org.bdawg.open_audio;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.BasicConfigurator;
 import org.bdawg.open_audio.Utils.OAConstants;
 import org.bdawg.open_audio.interfaces.ISender;
@@ -25,6 +27,10 @@ public class Runner {
 			InterruptedException, JsonParseException, JsonMappingException,
 			IOException {
 		BasicConfigurator.configure();
+		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.SimpleLog");
+		System.setProperty("org.apache.commons.logging.simplelog.showdatetime", "true");
+		System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.commons.httpclient", "warn");
+		
 		Logger logger = LoggerFactory.getLogger(Runner.class);
 		logger.debug("Starting...");
 		RateLimiter limit = RateLimiter.create(2);

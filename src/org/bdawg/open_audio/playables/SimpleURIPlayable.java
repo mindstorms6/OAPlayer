@@ -13,17 +13,25 @@ public class SimpleURIPlayable extends AbstractPlayable{
 	
 	private String mediaLocation;
 	private ISinglePlayable lastReturned;
-	private Map<String,String> meta;
-	
+	private boolean canPlayDirect;
 	
 	public SimpleURIPlayable(String id, String masterId, List<String> clients,  Map<String,String> params) throws MalformedMetaException{
-		super(id, masterId, false, clients);
-		this.meta = params;
+		super(id, masterId, false, clients, params);
 		
-		if (!params.containsKey(Utils.OAConstants.META_SIMPLE_URL_LOCATION_KEY)){
+		if (this.getMeta() == null){
 			throw new MalformedMetaException();
 		}
-		mediaLocation = params.get(Utils.OAConstants.META_SIMPLE_URL_LOCATION_KEY);
+		if (!this.getMeta().containsKey(OAConstants.META_SIMPLE_URL_LOCATION_KEY)){
+			throw new MalformedMetaException();
+		} else {
+			mediaLocation = this.getMeta().get(OAConstants.META_SIMPLE_URL_LOCATION_KEY);
+		}
+		
+		if (!this.getMeta().containsKey(OAConstants.META_SIMPLE_URL_CAN_PLAY_DIRECT_KEY)){
+			throw new MalformedMetaException();
+		} else {
+			canPlayDirect = this.getMeta().get(OAConstants.META_SIMPLE_URL_CAN_PLAY_DIRECT_KEY).equals(OAConstants.TRUE_STRING) ? true : false;
+		}
 	}
 	
 	public String getLocation(){
@@ -49,19 +57,23 @@ public class SimpleURIPlayable extends AbstractPlayable{
 
 				@Override
 				public boolean canVLCPlayDirect() {
-					//Simple
-					return true;
+					return SimpleURIPlayable.this.canPlayDirect;
 				}
 				
 				@Override
 				public Map<String,String> getMeta(){
-					return SimpleURIPlayable.this.meta;
+					return SimpleURIPlayable.this.getMeta();
 				}
 
 				@Override
 				public String getDLType() {
 					return SimpleURIPlayable.this.getDownloadType();
 					
+				}
+
+				@Override
+				public String getOwningPlayableId() {
+					return SimpleURIPlayable.this.getId();
 				}
 			};
 			lastReturned=next;
@@ -74,6 +86,5 @@ public class SimpleURIPlayable extends AbstractPlayable{
 	@Override
 	public String getDownloadType() {
 		return OAConstants.DL_TYPE_SIMPLE_URL;
-		
 	}
 }
