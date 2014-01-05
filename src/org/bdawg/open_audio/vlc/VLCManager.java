@@ -33,6 +33,8 @@ public class VLCManager implements IPlayer {
 	private Runnable aboutToEndRunnable;
 	private Runnable endCallback;
 	private JLabel label;
+	private boolean hasSyncLock = false;
+	private JLabel syncLockIcon;
 	private MediaPlayerEventListener listener = new MediaPlayerEventListener() {
 
 		@Override
@@ -187,6 +189,7 @@ public class VLCManager implements IPlayer {
 		@Override
 		public void finished(MediaPlayer mediaPlayer) {
 			log.debug("Media finished!");
+			VLCManager.this.setHasSyncLock(false);
 			if (endCallback != null) {
 				Thread t = new Thread(endCallback);
 				t.start();
@@ -248,10 +251,17 @@ public class VLCManager implements IPlayer {
 		label.setBackground(Color.black);
 		label.setOpaque(true);
 
+		syncLockIcon = new JLabel(" ");
+		syncLockIcon.setBackground(Color.red);
+		syncLockIcon.setOpaque(true);
+		syncLockIcon.setFont(new Font(Font.SANS_SERIF, 0, 1));
+		syncLockIcon.setBounds(0, 0, 2, 2);
+		
 		frame.setUndecorated(true);
 		mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
 		frame.setLayout(new BorderLayout());
 		frame.add(label, BorderLayout.SOUTH);
+		frame.add(syncLockIcon, BorderLayout.NORTH);
 		frame.add(mediaPlayerComponent, BorderLayout.CENTER);
 		Rectangle screenBounds = java.awt.GraphicsEnvironment
 				.getLocalGraphicsEnvironment().getDefaultScreenDevice()
@@ -274,6 +284,14 @@ public class VLCManager implements IPlayer {
 		mediaPlayerComponent.getMediaPlayer().setVolume(volume);
 	}
 
+	
+	public void setHasSyncLock(boolean hasSyncLock){
+		if (hasSyncLock != this.hasSyncLock){
+			this.hasSyncLock=hasSyncLock;
+			this.syncLockIcon.setBackground(this.hasSyncLock ? Color.green : Color.red);
+		}
+	}
+	
 	public int getVolume() {
 		return mediaPlayerComponent.getMediaPlayer().getVolume();
 	}

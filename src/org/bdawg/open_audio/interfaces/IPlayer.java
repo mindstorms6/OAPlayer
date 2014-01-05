@@ -14,4 +14,5 @@ public interface IPlayer {
 	public boolean isPlaying();
 	public Progress getCurrentProgress();
 	public void jumpTo(long jumpTo);
+	public void setHasSyncLock(boolean hasSync);
 }

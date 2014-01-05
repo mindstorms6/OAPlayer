@@ -41,7 +41,8 @@ public class SlaveManager implements ISimpleMQCallback {
 	private ISinglePlayable currentItem;
 	private Runnable externalEndedCallback;
 	private boolean syncLock = false;
-
+	private boolean syncLockTwo = false;
+	
 	private Runnable HBRunnable = new Runnable() {
 
 		@Override
@@ -87,6 +88,7 @@ public class SlaveManager implements ISimpleMQCallback {
 			switch (cc.getClientAction()) {
 			case PLAY:
 				syncLock=false;
+				syncLockTwo=false;
 				SinglePlayable aboutToPlay = SinglePlayable
 						.fromClientCommand(cc);
 				this.currentItem = aboutToPlay;
@@ -100,12 +102,15 @@ public class SlaveManager implements ISimpleMQCallback {
 				break;
 			case PAUSE:
 				syncLock=false;
+				syncLockTwo=false;
 				this.player.pause(cc.getTimestamp());
 				break;
 			case VOLUME:
 				this.player.setVolume(cc.getNewVolume());
 				break;
 			case STOP:
+				syncLock=false;
+				syncLockTwo=false;
 				this.player.stop(cc.getTimestamp());
 				break;
 			case HEARTBEAT_REQ:
@@ -132,20 +137,34 @@ public class SlaveManager implements ISimpleMQCallback {
 	private void alignPlayback(Sync sync) {
 		if (sync != null) {
 			//ensure ssame thing
-			if (this.currentItem.getOwningPlayableId().equals(sync.getOwningPBId()) && this.currentItem.getSubIndex() == this.currentItem.getSubIndex()){
+			if (this.currentItem.getOwningPlayableId().equals(sync.getOwningPBId()) && this.currentItem.getSubIndex() == sync.getSubIndex()){
 				logger.info("At " + sync.getMasterNTP() + " master was at " + sync.getMasterElapsed());
 				long diffMasterAndMe = sync.getMasterNTP() - TimeManager.getTMInstance().getCurrentTimeMillis();
 				long whereWasI = diffMasterAndMe + this.player.getCurrentProgress().getProgressTime();
 				logger.info("At " + sync.getMasterNTP() + " I was at " + whereWasI);
 				long difference = sync.getMasterElapsed() - whereWasI;
-				if (Math.abs(difference) < 1){
-					syncLock=true;
+				if (Math.abs(difference) <= 75){
+					if (syncLock){
+						syncLockTwo=true;
+					} else {
+						syncLock=true;
+						syncLockTwo=false;
+					}
+				} else if (Math.abs(difference) > 500){
+					syncLock=false;
+					syncLockTwo=false;
 				}
 				logger.info("Which means I'm off by " + difference);
-				if (difference > getJumpToMin() && !syncLock){
+				if ( syncLock && syncLockTwo){
+					logger.info("Had sync lock, NOT JUMPING");
+					this.player.setHasSyncLock(true);
+					//Have sync lokc
+				} else {
 					long shouldJumpTo = this.player.getCurrentProgress().getProgressTime() + difference;
-					logger.info("Jumping to " + shouldJumpTo);
 					this.player.jumpTo(shouldJumpTo);
+					logger.info("Jumping to " + shouldJumpTo);
+					this.player.setHasSyncLock(false);
+					//Don't have sync lock
 				}
 			} else {
 				logger.warn("Tried to sync different item than what was playing.");
@@ -153,10 +172,6 @@ public class SlaveManager implements ISimpleMQCallback {
 		}
 	}
 	
-	public long getJumpToMin(){
-		return 5; //Under 5 ms, fuck it.
-	}
-
 	public void init() throws IOException {
 		HBResponse resp = actualDoHB(true);
 		if (resp.getOwner().equals(Utils.OAConstants.NOT_OWNED_STRING)) {

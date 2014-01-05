@@ -13,6 +13,7 @@ import org.bdawg.open_audio.OpenAudioProtos.Sync;
 import org.bdawg.open_audio.Utils.OAConstants;
 import org.bdawg.open_audio.exceptions.MalformedMetaException;
 import org.bdawg.open_audio.interfaces.IPlayable;
+import org.bdawg.open_audio.interfaces.IPlayer;
 import org.bdawg.open_audio.interfaces.ISender;
 import org.bdawg.open_audio.interfaces.ISimpleMQCallback;
 import org.bdawg.open_audio.interfaces.ISinglePlayable;
@@ -31,9 +32,11 @@ public class MasterManager implements ISimpleMQCallback {
 	private IPlayable masterPlayable;
 	private ISinglePlayable next;
 	private Thread sendProgressThread;
-
-	public MasterManager(ISender sender) {
+	private IPlayer player;
+	
+	public MasterManager(ISender sender, IPlayer player) {
 		this.sender = sender;
+		this.player = player;
 	}
 
 	@Override
@@ -80,6 +83,7 @@ public class MasterManager implements ISimpleMQCallback {
 
 	public void masterManagePlayable(IPlayable playable) {
 		this.masterPlayable = playable;
+		this.player.setHasSyncLock(true);
 		if (this.masterPlayable.needsDistribute()) {
 
 			// download

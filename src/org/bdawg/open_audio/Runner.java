@@ -92,7 +92,7 @@ public class Runner {
 				MQTTManager.getMQInstance().sendMessage(message, topic);
 
 			}
-		});
+		}, vlcMgr);
 		logger.debug("Subbing to master topic");
 		MQTTManager.getMQInstance().subscribe(masterClientTopic, mm);
 		logger.debug("Initing master manager.");
@@ -121,7 +121,7 @@ public class Runner {
 			}
 		});
 
-		sm.setProgressRunnable(10, new Runnable() {
+		sm.setProgressRunnable(3, new Runnable() {
 			@Override
 			public void run() {
 				if (sm.getCurrentItem() != null
