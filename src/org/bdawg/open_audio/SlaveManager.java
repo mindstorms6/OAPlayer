@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.http.HttpResponse;
 import org.bdawg.open_audio.OpenAudioProtos.ClientCommand;
+import org.bdawg.open_audio.OpenAudioProtos.Sync;
 import org.bdawg.open_audio.PropertyManager.PropertyKey;
 import org.bdawg.open_audio.Utils.OAConstants;
 import org.bdawg.open_audio.file_manager.FileManager;
@@ -21,6 +22,7 @@ import org.bdawg.open_audio.interfaces.ISinglePlayable;
 import org.bdawg.open_audio.sntp.TimeManager;
 import org.bdawg.open_audio.webObjects.HBResponse;
 import org.bdawg.open_audio.webObjects.HearbeatObject;
+import org.bdawg.open_audio.webObjects.Progress;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,9 @@ public class SlaveManager implements ISimpleMQCallback {
 	private ScheduledExecutorService scheduler;
 	private ScheduledFuture<?> ntpHandle;
 	private ISinglePlayable currentItem;
+	private Runnable externalEndedCallback;
+	private boolean syncLock = false;
+
 	private Runnable HBRunnable = new Runnable() {
 
 		@Override
@@ -49,16 +54,31 @@ public class SlaveManager implements ISimpleMQCallback {
 		this.player = toControl;
 		this.send = send;
 		scheduler = Executors.newScheduledThreadPool(5);
+		this.player.setEndedCallback(new Runnable() {
+
+			@Override
+			public void run() {
+				SlaveManager.this.currentItem = null;
+				if (SlaveManager.this.externalEndedCallback != null) {
+					SlaveManager.this.externalEndedCallback.run();
+				}
+			}
+		});
+	}
+
+	public void setProgressRunnable(int intervalSeconds, Runnable toExecute) {
+		this.scheduler.scheduleAtFixedRate(toExecute, 0, intervalSeconds,
+				TimeUnit.SECONDS);
 	}
 
 	public void setEndedRunnable(Runnable r) {
-		this.player.setEndedCallback(r);
+		this.externalEndedCallback = r;
 	}
 
-	public void setAboutToEndRunnable(Runnable r){
+	public void setAboutToEndRunnable(Runnable r) {
 		this.player.setAboutToEndCallback(r);
 	}
-	
+
 	@Override
 	public void messageArrived(String topic, ByteBuffer message) {
 		// TODO Auto-generated method stub
@@ -66,6 +86,7 @@ public class SlaveManager implements ISimpleMQCallback {
 			ClientCommand cc = ClientCommand.parseFrom(message.array());
 			switch (cc.getClientAction()) {
 			case PLAY:
+				syncLock=false;
 				SinglePlayable aboutToPlay = SinglePlayable
 						.fromClientCommand(cc);
 				this.currentItem = aboutToPlay;
@@ -78,6 +99,7 @@ public class SlaveManager implements ISimpleMQCallback {
 						this.player);
 				break;
 			case PAUSE:
+				syncLock=false;
 				this.player.pause(cc.getTimestamp());
 				break;
 			case VOLUME:
@@ -90,7 +112,11 @@ public class SlaveManager implements ISimpleMQCallback {
 				sendHBMessage(false);
 				break;
 			case DOWNLOAD:
-				FileManager.queueForDownload(SinglePlayable.fromClientCommand(cc));
+				FileManager.queueForDownload(SinglePlayable
+						.fromClientCommand(cc));
+				break;
+			case SYNC:
+				this.alignPlayback(cc.getSync());
 				break;
 			default:
 				break;
@@ -98,9 +124,37 @@ public class SlaveManager implements ISimpleMQCallback {
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
 			logger.warn("Invalid message came across the wire!", e);
-		} catch (IOException ioex){
+		} catch (IOException ioex) {
 			logger.warn("Filemanager failed to download");
 		}
+	}
+
+	private void alignPlayback(Sync sync) {
+		if (sync != null) {
+			//ensure ssame thing
+			if (this.currentItem.getOwningPlayableId().equals(sync.getOwningPBId()) && this.currentItem.getSubIndex() == this.currentItem.getSubIndex()){
+				logger.info("At " + sync.getMasterNTP() + " master was at " + sync.getMasterElapsed());
+				long diffMasterAndMe = sync.getMasterNTP() - TimeManager.getTMInstance().getCurrentTimeMillis();
+				long whereWasI = diffMasterAndMe + this.player.getCurrentProgress().getProgressTime();
+				logger.info("At " + sync.getMasterNTP() + " I was at " + whereWasI);
+				long difference = sync.getMasterElapsed() - whereWasI;
+				if (Math.abs(difference) < 1){
+					syncLock=true;
+				}
+				logger.info("Which means I'm off by " + difference);
+				if (difference > getJumpToMin() && !syncLock){
+					long shouldJumpTo = this.player.getCurrentProgress().getProgressTime() + difference;
+					logger.info("Jumping to " + shouldJumpTo);
+					this.player.jumpTo(shouldJumpTo);
+				}
+			} else {
+				logger.warn("Tried to sync different item than what was playing.");
+			}
+		}
+	}
+	
+	public long getJumpToMin(){
+		return 5; //Under 5 ms, fuck it.
 	}
 
 	public void init() throws IOException {
@@ -118,7 +172,9 @@ public class SlaveManager implements ISimpleMQCallback {
 			@Override
 			public void run() {
 				HBResponse r = actualDoHB(markStartup);
-				if (r != null && !r.getOwner().equals(Utils.OAConstants.NOT_OWNED_STRING)) {
+				if (r != null
+						&& !r.getOwner().equals(
+								Utils.OAConstants.NOT_OWNED_STRING)) {
 					SlaveManager.this.player.setOverlay("");
 				} else {
 					try {
@@ -163,6 +219,15 @@ public class SlaveManager implements ISimpleMQCallback {
 
 	public ISinglePlayable getCurrentItem() {
 		return this.currentItem;
+	}
+
+	public Progress getCurrentProgress() {
+		Progress tr = this.player.getCurrentProgress();
+		if (tr != null) {
+			tr.setItemUUID(this.currentItem.getOwningPlayableId());
+			tr.setSubIndex(this.currentItem.getSubIndex());
+		}
+		return tr;
 	}
 
 }

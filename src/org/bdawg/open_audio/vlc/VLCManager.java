@@ -29,12 +29,11 @@ public class VLCManager implements IPlayer {
 	private static final Logger log = LoggerFactory.getLogger(VLCManager.class);
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 	private JFrame frame;
-	private boolean hasNotifiedAboutToEnd=false;
+	private boolean hasNotifiedAboutToEnd = false;
 	private Runnable aboutToEndRunnable;
 	private Runnable endCallback;
 	private JLabel label;
 	private MediaPlayerEventListener listener = new MediaPlayerEventListener() {
-		
 
 		@Override
 		public void videoOutput(MediaPlayer mediaPlayer, int newCount) {
@@ -50,10 +49,11 @@ public class VLCManager implements IPlayer {
 
 		@Override
 		public void timeChanged(MediaPlayer mediaPlayer, long newTime) {
-			if (!hasNotifiedAboutToEnd && mediaPlayer.getLength() - newTime < 30*1000){
+			if (!hasNotifiedAboutToEnd
+					&& mediaPlayer.getLength() - newTime < 30 * 1000) {
 				log.debug("Less than 30 seconds to go!!!");
-				hasNotifiedAboutToEnd=true;
-				if (aboutToEndRunnable !=null){
+				hasNotifiedAboutToEnd = true;
+				if (aboutToEndRunnable != null) {
 					Thread t = new Thread(aboutToEndRunnable);
 					t.start();
 				}
@@ -187,7 +187,7 @@ public class VLCManager implements IPlayer {
 		@Override
 		public void finished(MediaPlayer mediaPlayer) {
 			log.debug("Media finished!");
-			if (endCallback != null){
+			if (endCallback != null) {
 				Thread t = new Thread(endCallback);
 				t.start();
 			}
@@ -220,11 +220,10 @@ public class VLCManager implements IPlayer {
 		}
 	};
 
-	
-	public VLCManager(){
-		this(null,null);
+	public VLCManager() {
+		this(null, null);
 	}
-	
+
 	public VLCManager(Runnable aboutToEndCallback, Runnable endCallback) {
 		if (RuntimeUtil.isWindows()) {
 			NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(),
@@ -244,11 +243,11 @@ public class VLCManager implements IPlayer {
 		this.aboutToEndRunnable = aboutToEndCallback;
 		frame = new JFrame("OpenAudio");
 		label = new JLabel("Fetching data");
-        label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
-        label.setForeground(Color.white);
-        label.setBackground(Color.black);
+		label.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
+		label.setForeground(Color.white);
+		label.setBackground(Color.black);
 		label.setOpaque(true);
-        
+
 		frame.setUndecorated(true);
 		mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
 		frame.setLayout(new BorderLayout());
@@ -257,7 +256,6 @@ public class VLCManager implements IPlayer {
 		Rectangle screenBounds = java.awt.GraphicsEnvironment
 				.getLocalGraphicsEnvironment().getDefaultScreenDevice()
 				.getDefaultConfiguration().getBounds();
-		
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -270,7 +268,7 @@ public class VLCManager implements IPlayer {
 		mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(
 				listener);
 	}
-	
+
 	@Override
 	public void setVolume(int volume) {
 		mediaPlayerComponent.getMediaPlayer().setVolume(volume);
@@ -280,14 +278,18 @@ public class VLCManager implements IPlayer {
 		return mediaPlayerComponent.getMediaPlayer().getVolume();
 	}
 
-	public Progress getPlaybackProgress() {
-
-		Progress p = new Progress();
+	@Override
+	public Progress getCurrentProgress() {
+		if (this.isPlaying()) {
+			Progress p = new Progress();
 			p.setTotalItemTime(mediaPlayerComponent.getMediaPlayer()
 					.getLength());
 			p.setProgressTime(mediaPlayerComponent.getMediaPlayer().getTime());
 			p.setNTPTime(TimeManager.getTMInstance().getCurrentTimeMillis());
-		return p;
+			return p;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -353,7 +355,7 @@ public class VLCManager implements IPlayer {
 
 			@Override
 			public void playing(MediaPlayer mediaPlayer) {
-				hasNotifiedAboutToEnd=false;
+				hasNotifiedAboutToEnd = false;
 				long diff = TimeManager.getTMInstance().getCurrentTimeMillis()
 						- ntpTime;
 				if (diff > 0) {
@@ -363,11 +365,12 @@ public class VLCManager implements IPlayer {
 				} else if (diff < 0) {
 					// early, wait
 					mediaPlayer.pause();
-					while (TimeManager.getTMInstance().getCurrentTimeMillis() - ntpTime < 0){
-						
+					while (TimeManager.getTMInstance().getCurrentTimeMillis()
+							- ntpTime < 0) {
+
 					}
 					mediaPlayer.pause();
-					
+
 				}
 				mediaPlayer.removeMediaPlayerEventListener(this);
 
@@ -487,9 +490,9 @@ public class VLCManager implements IPlayer {
 		};
 		mediaPlayerComponent.getMediaPlayer().addMediaPlayerEventListener(
 				timerFixer);
-		mediaPlayerComponent.getMediaPlayer().playMedia(
-				pathToPlay);
-		
+		mediaPlayerComponent.getMediaPlayer().playMedia(pathToPlay,
+				"--effect-list=spectrum", "--audio-visual=visual");
+
 	}
 
 	@Override
@@ -538,19 +541,27 @@ public class VLCManager implements IPlayer {
 	public boolean isPlaying() {
 		return this.mediaPlayerComponent.getMediaPlayer().isPlaying();
 	};
-	
+
 	@Override
 	public void setOverlay(String overlay) {
-		  this.label.setText(overlay);
+		this.label.setText(overlay);
 	}
-	
+
 	@Override
-	public void setAboutToEndCallback(Runnable ate){
+	public void setAboutToEndCallback(Runnable ate) {
 		this.aboutToEndRunnable = ate;
 	}
-	
+
 	@Override
-	public void setEndedCallback(Runnable ended){
+	public void setEndedCallback(Runnable ended) {
 		this.endCallback = ended;
+	}
+
+	@Override
+	public void jumpTo(long jumpTo) {
+		if (this.isPlaying()){
+			this.mediaPlayerComponent.getMediaPlayer().setTime(jumpTo);
+		}
+		
 	}
 }

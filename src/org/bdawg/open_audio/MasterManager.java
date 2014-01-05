@@ -9,6 +9,7 @@ import org.bdawg.open_audio.OpenAudioProtos.MasterCommand;
 import org.bdawg.open_audio.OpenAudioProtos.MasterCommand.MasterAction;
 import org.bdawg.open_audio.OpenAudioProtos.MasterPlayable;
 import org.bdawg.open_audio.OpenAudioProtos.SinglePBItem;
+import org.bdawg.open_audio.OpenAudioProtos.Sync;
 import org.bdawg.open_audio.Utils.OAConstants;
 import org.bdawg.open_audio.exceptions.MalformedMetaException;
 import org.bdawg.open_audio.interfaces.IPlayable;
@@ -17,6 +18,7 @@ import org.bdawg.open_audio.interfaces.ISimpleMQCallback;
 import org.bdawg.open_audio.interfaces.ISinglePlayable;
 import org.bdawg.open_audio.playables.SimpleURIPlayable;
 import org.bdawg.open_audio.sntp.TimeManager;
+import org.bdawg.open_audio.webObjects.Progress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +30,7 @@ public class MasterManager implements ISimpleMQCallback {
 	private ISender sender;
 	private IPlayable masterPlayable;
 	private ISinglePlayable next;
+	private Thread sendProgressThread;
 
 	public MasterManager(ISender sender) {
 		this.sender = sender;
@@ -112,6 +115,11 @@ public class MasterManager implements ISimpleMQCallback {
 		}
 	}
 
+	/**
+	 * THis gets called when playback is about to end (30 seconds out) Gives a
+	 * chance for the client to start downloading so the transititon is
+	 * seemless.
+	 */
 	public void aboutToEndPlayableCallback() {
 		ISinglePlayable nextToPlay = this.masterPlayable
 				.getNextSinglePlayable();
@@ -168,6 +176,26 @@ public class MasterManager implements ISimpleMQCallback {
 		ByteBuffer toSend = ByteBuffer.wrap(b.build().toByteArray());
 		for (String clientID : this.masterPlayable.getClients()) {
 			this.sender.sendToTopic(toSend, OAConstants.BASE_TOPIC + clientID);
+		}
+	}
+
+	public void broadcastProgress(Progress p) {
+		if (p != null) {
+			ClientCommand b = ClientCommand
+					.newBuilder()
+					.setClientAction(ClientAction.SYNC)
+					.setSync(
+							Sync.newBuilder()
+									.setMasterElapsed(p.getProgressTime())
+									.setMasterNTP(p.getNTPTime())
+									.setOwningPBId(p.getItemUUID())
+									.setSubIndex(p.getSubIndex())).build();
+			ByteBuffer toSend = ByteBuffer.wrap(b.toByteArray());
+			for (String clientID : this.masterPlayable.getClients()) {
+				if (!clientID.equals(this.masterPlayable.getMasterClientId())){
+					this.sender.sendToTopic(toSend, OAConstants.BASE_TOPIC + clientID);
+				}
+			}
 		}
 	}
 }

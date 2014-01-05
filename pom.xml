@@ -101,18 +101,28 @@
 			<version>2.5.0</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.bdawg</groupId>
-		    <artifactId>OAConstans</artifactId>
-		    <version>0.0.1-SNAPSHOT</version>
-		    <scope>system</scope>
-		    <systemPath>C:\Users\breland.HOME\workspace\OAConstants\target\OAConstants-0.0.1-SNAPSHOT.jar</systemPath>
+			<groupId>org.bdawg</groupId>
+			<artifactId>OAConstants</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.3</version>
+		</dependency>
+
 	</dependencies>
 	<repositories>
 		<repository>
 			<id>eclipse-repo</id>
 			<url>https://repo.eclipse.org/content/repositories/paho-releases/</url>
+		</repository>
+		<repository>
+			<id>bdawg-repo</id>
+			<url>https://s3.amazonaws.com/oa_lwa</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 </project>
