@@ -162,7 +162,7 @@ public class SlaveManager implements ISimpleMQCallback {
 					this.player.setHasSyncLock(true);
 					//Have sync lokc
 				} else {
-					long jumpPenalty = 12;
+					long jumpPenalty = 10;
 					long shouldJumpTo = this.player.getCurrentProgress().getProgressTime() + difference + jumpPenalty;
 					this.player.jumpTo(shouldJumpTo);
 					logger.info("Jumping to " + shouldJumpTo);
