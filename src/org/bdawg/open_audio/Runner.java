@@ -6,7 +6,6 @@ import java.nio.ByteBuffer;
 import org.apache.log4j.BasicConfigurator;
 import org.bdawg.open_audio.Utils.OAConstants;
 import org.bdawg.open_audio.interfaces.ISender;
-import org.bdawg.open_audio.interfaces.ISinglePlayable;
 import org.bdawg.open_audio.mqtt.MQTTManager;
 import org.bdawg.open_audio.sntp.TimeManager;
 import org.bdawg.open_audio.vlc.VLCManager;

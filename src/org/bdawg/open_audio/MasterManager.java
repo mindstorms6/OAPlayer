@@ -1,5 +1,12 @@
 package org.bdawg.open_audio;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
@@ -11,7 +18,7 @@ import org.bdawg.open_audio.OpenAudioProtos.MasterPlayable;
 import org.bdawg.open_audio.OpenAudioProtos.SinglePBItem;
 import org.bdawg.open_audio.OpenAudioProtos.Sync;
 import org.bdawg.open_audio.Utils.OAConstants;
-import org.bdawg.open_audio.exceptions.MalformedMetaException;
+import org.bdawg.open_audio.file_manager.FileManager;
 import org.bdawg.open_audio.interfaces.IPlayable;
 import org.bdawg.open_audio.interfaces.IPlayer;
 import org.bdawg.open_audio.interfaces.ISender;
@@ -19,11 +26,17 @@ import org.bdawg.open_audio.interfaces.ISimpleMQCallback;
 import org.bdawg.open_audio.interfaces.ISinglePlayable;
 import org.bdawg.open_audio.playables.SimpleURIPlayable;
 import org.bdawg.open_audio.sntp.TimeManager;
+import org.bdawg.open_audio.sources.MalformedMetaException;
+import org.bdawg.open_audio.sources.YoutubeSource;
 import org.bdawg.open_audio.webObjects.Progress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.turn.ttorrent.client.SharedTorrent;
+import com.turn.ttorrent.common.Torrent;
+import com.turn.ttorrent.tracker.TrackedTorrent;
 
 public class MasterManager implements ISimpleMQCallback {
 
@@ -33,7 +46,7 @@ public class MasterManager implements ISimpleMQCallback {
 	private ISinglePlayable next;
 	private Thread sendProgressThread;
 	private IPlayer player;
-	
+
 	public MasterManager(ISender sender, IPlayer player) {
 		this.sender = sender;
 		this.player = player;
@@ -57,6 +70,11 @@ public class MasterManager implements ISimpleMQCallback {
 				} else if (playableToGet.getPlaybackType().equals(
 						Utils.OAConstants.DL_TYPE_FS)) {
 					// FileSysstem resource, local to this hosts presumably
+				} else if (playableToGet.getPlaybackType().equals(
+						Utils.OAConstants.PB_TYPE_YOUTUBE)) {
+					toManage = new YoutubeSource(playableToGet.getId(),
+							Runner.myMacAddress,
+							playableToGet.getClientIdList(), playableMeta);
 				}
 				if (toManage != null) {
 					this.masterManagePlayable(toManage);
@@ -73,6 +91,15 @@ public class MasterManager implements ISimpleMQCallback {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			log.warn("Could not form valid playable from incoming message");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -81,11 +108,17 @@ public class MasterManager implements ISimpleMQCallback {
 
 	}
 
-	public void masterManagePlayable(IPlayable playable) {
+	public void masterManagePlayable(IPlayable playable) throws InterruptedException, IOException, URISyntaxException {
 		this.masterPlayable = playable;
 		this.player.setHasSyncLock(true);
 		if (this.masterPlayable.needsDistribute()) {
-
+			ISinglePlayable toDistribute = this.masterPlayable
+					.getNextSinglePlayable();
+			File toShare = toDistribute.getToDistribute();
+			File torrentFile = new File(FileManager.getTorrentDirectory(),FileManager.torrentFileNameFromSP(toDistribute));
+			Torrent tFile = Torrent.create(toShare, new URI("udp://tracker.openbittorrent.com:80/announce"), Runner.myMacAddress);
+			tFile.save(new FileOutputStream(torrentFile));
+			doPlayOnAll(toDistribute, torrentFile);
 			// download
 			// make torrent
 			// upload torrrent
@@ -98,7 +131,7 @@ public class MasterManager implements ISimpleMQCallback {
 			ISinglePlayable nextToPlay = this.masterPlayable
 					.getNextSinglePlayable();
 			if (nextToPlay != null) {
-				doPlayOnAll(nextToPlay);
+				doPlayOnAll(nextToPlay,null);
 			} else {
 				log.info("getNextSinglePlayable retuned null. Assuming end of Playlist.");
 			}
@@ -113,7 +146,7 @@ public class MasterManager implements ISimpleMQCallback {
 	 */
 	public void singlePlayableCallback() {
 		if (this.next != null) {
-			doPlayOnAll(next);
+			doPlayOnAll(next, null);
 		} else {
 			log.info("Not telling clients to play anything, as next was null");
 		}
@@ -159,7 +192,7 @@ public class MasterManager implements ISimpleMQCallback {
 		}
 	}
 
-	public void doPlayOnAll(ISinglePlayable toPlayOnAll) {
+	public void doPlayOnAll(ISinglePlayable toPlayOnAll, File toDistributeTorrent) {
 		ClientCommand.Builder b = ClientCommand
 				.newBuilder()
 				.setClientAction(ClientAction.PLAY)
@@ -174,9 +207,23 @@ public class MasterManager implements ISimpleMQCallback {
 										Utils.mapToKVList(toPlayOnAll.getMeta()))
 								.setDlType(
 										this.masterPlayable.getDownloadType())
+								
 								.setOwningPBId(this.masterPlayable.getId()))
 				.setTimestamp(
 						TimeManager.getTMInstance().getCurrentTimeMillis() + 5000);
+		
+		if (toDistributeTorrent != null){
+			try {
+				ByteString fileBS = ByteString.readFrom(new FileInputStream(toDistributeTorrent));
+				b.getItemBuilder().setTorrentBytes(fileBS);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		ByteBuffer toSend = ByteBuffer.wrap(b.build().toByteArray());
 		for (String clientID : this.masterPlayable.getClients()) {
 			this.sender.sendToTopic(toSend, OAConstants.BASE_TOPIC + clientID);
@@ -196,8 +243,9 @@ public class MasterManager implements ISimpleMQCallback {
 									.setSubIndex(p.getSubIndex())).build();
 			ByteBuffer toSend = ByteBuffer.wrap(b.toByteArray());
 			for (String clientID : this.masterPlayable.getClients()) {
-				if (!clientID.equals(this.masterPlayable.getMasterClientId())){
-					this.sender.sendToTopic(toSend, OAConstants.BASE_TOPIC + clientID);
+				if (!clientID.equals(this.masterPlayable.getMasterClientId())) {
+					this.sender.sendToTopic(toSend, OAConstants.BASE_TOPIC
+							+ clientID);
 				}
 			}
 		}

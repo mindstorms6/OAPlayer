@@ -91,14 +91,16 @@ public class SlaveManager implements ISimpleMQCallback {
 				syncLockTwo=false;
 				SinglePlayable aboutToPlay = SinglePlayable
 						.fromClientCommand(cc);
+				
 				this.currentItem = aboutToPlay;
 				// If we have already downloaded it, then we're good, play
 				// it. (Which, hopefully, it already is downloaded)
 				// If we haven't downloaded it, and we need to, download,
 				// then do the play
 				// FileManager will also check if VLC can play direct
+				
 				FileManager.playWhenReady(cc.getTimestamp(), aboutToPlay,
-						this.player);
+						this.player, cc);
 				break;
 			case PAUSE:
 				syncLock=false;
@@ -160,7 +162,8 @@ public class SlaveManager implements ISimpleMQCallback {
 					this.player.setHasSyncLock(true);
 					//Have sync lokc
 				} else {
-					long shouldJumpTo = this.player.getCurrentProgress().getProgressTime() + difference;
+					long jumpPenalty = 12;
+					long shouldJumpTo = this.player.getCurrentProgress().getProgressTime() + difference + jumpPenalty;
 					this.player.jumpTo(shouldJumpTo);
 					logger.info("Jumping to " + shouldJumpTo);
 					this.player.setHasSyncLock(false);

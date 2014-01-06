@@ -1,5 +1,6 @@
 package org.bdawg.open_audio.file_manager;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,7 +8,10 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
+import org.bdawg.open_audio.OpenAudioProtos.ClientCommand;
+import org.bdawg.open_audio.Utils;
 import org.bdawg.open_audio.Utils.OAConstants;
 import org.bdawg.open_audio.http_utils.HttpUtils;
 import org.bdawg.open_audio.interfaces.IPlayer;
@@ -16,6 +20,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.util.concurrent.RateLimiter;
+import com.turn.ttorrent.client.Client;
+import com.turn.ttorrent.client.SharedTorrent;
 
 public class FileManager {
 
@@ -23,15 +29,30 @@ public class FileManager {
 			System.getProperty("java.io.tmpdir"));
 	private static File downloadDirectory;
 	private static boolean inited = false;
+	private static File torrentDirectory;
 
 	private static Logger log = LoggerFactory.getLogger(FileManager.class);
 
 	private FileManager() {
 
 	}
+	
+	public static String torrentFileNameFromSP(ISinglePlayable toGetNameFor){
+		return toGetNameFor.getOwningPlayableId() + "_" + toGetNameFor.getSubIndex() + OAConstants.TORRENT_EXTENSION;
+	}
+	
+	public static File getTorrentDirectory(){
+		checkInit();
+		return torrentDirectory;
+	}
+	
+	public static File getDownloadDirectory(){
+		checkInit();
+		return downloadDirectory;
+	}
 
 	public static void playWhenReady(final long timestamp,
-			ISinglePlayable aboutToPlay, final IPlayer player)
+			ISinglePlayable aboutToPlay, final IPlayer player, final ClientCommand command)
 			throws IOException {
 		checkInit();
 		// Fuck it, send straight to VLC
@@ -75,40 +96,54 @@ public class FileManager {
 				Thread m = new Thread(new Runnable() {
 					float expectedSize = 0;
 					boolean didAttempStart = false;
-					
+
 					@Override
 					public void run() {
 						HttpResponse r;
 						try {
 							RateLimiter rater = RateLimiter.create(4);
 							r = HttpUtils.executeHead(URI);
-							expectedSize = Float.parseFloat(r.getHeaders("Content-Length")[0].getValue());
-							while (true){
+							expectedSize = Float.parseFloat(r
+									.getHeaders("Content-Length")[0].getValue());
+							while (true) {
 								rater.acquire();
 								long currDownloaded = mightExist.length();
-								float currP = (float)((float)currDownloaded / expectedSize);
-								currP = (float)Math.floor(currP * 100);
-								if (currP > 15 && !didAttempStart){
+								float currP = (float) ((float) currDownloaded / expectedSize);
+								currP = (float) Math.floor(currP * 100);
+								if (currP > 15 && !didAttempStart) {
 									player.setOverlay("");
 									didAttempStart = true;
-									player.play(timestamp, mightExist.getAbsolutePath());
+									player.play(timestamp,
+											mightExist.getAbsolutePath());
 									break;
 								} else {
-									player.setOverlay((int)currP+ "%");
+									player.setOverlay((int) currP + "%");
 								}
 							}
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						
+
 					}
 				});
 				m.start();
 			}
+
+		} else if (aboutToPlay.getDLType().equals(OAConstants.DL_TYPE_TORRENT)) {
+			File torrentFile = new File(torrentDirectory, torrentFileNameFromSP(aboutToPlay));
+			FileOutputStream fos = new FileOutputStream(torrentFile);
+			command.getItem().getTorrentBytes().writeTo(fos);
+			SharedTorrent t = SharedTorrent.fromFile(torrentFile, downloadDirectory);
+			Client c = new Client(Utils.getLocalInetAddress(), t);
+			c.download();
+			c.share(1800);
+			c.waitForCompletion();
+			File downloaded = new File(downloadDirectory, t.getName());
+			player.play(timestamp, downloaded.getAbsolutePath());
 		} else {
 			throw new RuntimeException(
-					"Not implemented anything besides simple URI downloads.");
+					"Not implemented anything besides simple URI downloads && distrib torrents.");
 		}
 
 	}
@@ -123,6 +158,12 @@ public class FileManager {
 			downloadDirectory.mkdir();
 		}
 		downloadDirectory.setWritable(true, true);
+
+		torrentDirectory = new File(tmpDirectory, "torrent_files");
+		if (!torrentDirectory.exists()) {
+			torrentDirectory.mkdir();
+		}
+		torrentDirectory.setWritable(true, true);
 		inited = true;
 	}
 

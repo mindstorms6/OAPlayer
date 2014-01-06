@@ -1,13 +1,13 @@
 package org.bdawg.open_audio.playables;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import org.bdawg.open_audio.Utils;
 import org.bdawg.open_audio.Utils.OAConstants;
-import org.bdawg.open_audio.exceptions.MalformedMetaException;
 import org.bdawg.open_audio.impl.AbstractPlayable;
 import org.bdawg.open_audio.interfaces.ISinglePlayable;
+import org.bdawg.open_audio.sources.MalformedMetaException;
 
 public class SimpleURIPlayable extends AbstractPlayable{
 	
@@ -47,6 +47,10 @@ public class SimpleURIPlayable extends AbstractPlayable{
 				public int getSubIndex() {
 					//Only one item for SimpleURI playables
 					return 0;
+				}
+				
+				public File getToDistribute() {
+					return null;
 				}
 				
 				@Override
