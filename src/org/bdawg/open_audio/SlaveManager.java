@@ -145,7 +145,7 @@ public class SlaveManager implements ISimpleMQCallback {
 				long whereWasI = diffMasterAndMe + this.player.getCurrentProgress().getProgressTime();
 				logger.info("At " + sync.getMasterNTP() + " I was at " + whereWasI);
 				long difference = sync.getMasterElapsed() - whereWasI;
-				if (Math.abs(difference) <= 75){
+				if (Math.abs(difference) <= 50){
 					if (syncLock){
 						syncLockTwo=true;
 					} else {
@@ -180,6 +180,9 @@ public class SlaveManager implements ISimpleMQCallback {
 		if (resp.getOwner().equals(Utils.OAConstants.NOT_OWNED_STRING)) {
 			this.player.setOverlay(Utils.getMacAddresses());
 		}
+		if (resp.getManualOffset() != 0){
+			TimeManager.getTMInstance().setManualOffset(resp.getManualOffset());
+		}
 		ntpHandle = scheduler.scheduleAtFixedRate(HBRunnable,
 				DEFUALT_RUN_DELAY, DEFAULT_PERIOD, TimeUnit.SECONDS);
 	}
@@ -190,10 +193,14 @@ public class SlaveManager implements ISimpleMQCallback {
 			@Override
 			public void run() {
 				HBResponse r = actualDoHB(markStartup);
+				if (r != null){
+					TimeManager.getTMInstance().setManualOffset(r.getManualOffset());
+				}
 				if (r != null
 						&& !r.getOwner().equals(
 								Utils.OAConstants.NOT_OWNED_STRING)) {
 					SlaveManager.this.player.setOverlay("");
+					
 				} else {
 					try {
 						SlaveManager.this.player.setOverlay(Utils

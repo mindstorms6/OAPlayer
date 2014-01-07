@@ -9,9 +9,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.net.ntp.NTPUDPClient;
-import org.apache.commons.net.ntp.NtpV3Packet;
 import org.apache.commons.net.ntp.TimeInfo;
-import org.apache.commons.net.ntp.TimeStamp;
 import org.apache.log4j.Logger;
 
 public class TimeManager {
@@ -29,6 +27,7 @@ public class TimeManager {
 	private long runningDelta = 0;
 	private long runDeltaRounds = 0;
 	private Object syncHandle;
+	private long manualOffset = 0;
 
 	private final Runnable updateNTP = new Runnable() {
 		@Override
@@ -121,7 +120,7 @@ public class TimeManager {
 
 	}
 
-	public long getSystemTimeOffsetNanos() {
+	private long getSystemTimeOffsetMillis() {
 		long tr;
 		synchronized (this) {
 			tr = runningDelta;
@@ -130,8 +129,8 @@ public class TimeManager {
 	}
 
 	public long getCurrentTimeMillis() {
-		long millsOff = (long) (getSystemTimeOffsetNanos());
-		return System.currentTimeMillis() + millsOff;
+		long millsOff = (long) (getSystemTimeOffsetMillis());
+		return System.currentTimeMillis() + millsOff+ TimeManager.getTMInstance().getManualOffset();
 	}
 
 	private synchronized void setOffset(long newOffset) {
@@ -142,5 +141,13 @@ public class TimeManager {
 
 	public void updateNow() {
 		this.updateNTP.run();
+	}
+
+	public long getManualOffset() {
+		return this.manualOffset;
+	}
+
+	public void setManualOffset(long manualOffset) {
+		this.manualOffset = manualOffset;
 	}
 }
