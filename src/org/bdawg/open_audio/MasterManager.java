@@ -17,8 +17,10 @@ import org.bdawg.open_audio.OpenAudioProtos.MasterCommand.MasterAction;
 import org.bdawg.open_audio.OpenAudioProtos.MasterPlayable;
 import org.bdawg.open_audio.OpenAudioProtos.SinglePBItem;
 import org.bdawg.open_audio.OpenAudioProtos.Sync;
+import org.bdawg.open_audio.PropertyManager.PropertyKey;
 import org.bdawg.open_audio.Utils.OAConstants;
 import org.bdawg.open_audio.file_manager.FileManager;
+import org.bdawg.open_audio.http_utils.HttpUtils;
 import org.bdawg.open_audio.interfaces.IPlayable;
 import org.bdawg.open_audio.interfaces.IPlayer;
 import org.bdawg.open_audio.interfaces.ISender;
@@ -28,6 +30,7 @@ import org.bdawg.open_audio.playables.SimpleURIPlayable;
 import org.bdawg.open_audio.sntp.TimeManager;
 import org.bdawg.open_audio.sources.MalformedMetaException;
 import org.bdawg.open_audio.sources.YoutubeSource;
+import org.bdawg.open_audio.webObjects.PlaybackHeartBeat;
 import org.bdawg.open_audio.webObjects.Progress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -249,5 +252,26 @@ public class MasterManager implements ISimpleMQCallback {
 				}
 			}
 		}
+	}
+	
+	public void pushProgressToServer(Progress p){
+		if (p==null){
+			return;
+		}
+		PlaybackHeartBeat pbhb = new PlaybackHeartBeat();
+		pbhb.setItemId(p.getItemUUID());
+		pbhb.setSubIndex(p.getSubIndex());
+		pbhb.setProgressTime(p.getProgressTime());
+		pbhb.setTotalTime(p.getTotalItemTime());
+		String baseURL = PropertyManager.getStringForKey(PropertyKey.WS_HOST,
+				OAConstants.WS_HOST);
+		String url = baseURL + "/clients/pb_hb";
+		try {
+			HttpUtils.executePost(url, pbhb);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }

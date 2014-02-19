@@ -1,14 +1,15 @@
 package org.bdawg.open_audio.file_manager;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.bdawg.open_audio.OpenAudioProtos.ClientCommand;
 import org.bdawg.open_audio.Utils;
@@ -30,8 +31,12 @@ public class FileManager {
 	private static File downloadDirectory;
 	private static boolean inited = false;
 	private static File torrentDirectory;
-
+	private static ExecutorService downloadPool = Executors.newFixedThreadPool(5);
+	private static ExecutorService pbCheckPool = Executors.newSingleThreadExecutor();
+	private static Future<?> lastEXFuture;
+	
 	private static Logger log = LoggerFactory.getLogger(FileManager.class);
+	
 
 	private FileManager() {
 
@@ -75,7 +80,7 @@ public class FileManager {
 				player.play(timestamp, mightExist.getAbsolutePath());
 			} else {
 				mightExist.createNewFile();
-				Thread t = new Thread(new Runnable() {
+				Thread downloaderThread = new Thread(new Runnable() {
 
 					@Override
 					public void run() {
@@ -92,8 +97,8 @@ public class FileManager {
 						}
 					}
 				});
-				t.start();
-				Thread m = new Thread(new Runnable() {
+				downloadPool.submit(downloaderThread);
+				Thread pbCheckThread = new Thread(new Runnable() {
 					float expectedSize = 0;
 					boolean didAttempStart = false;
 
@@ -127,7 +132,10 @@ public class FileManager {
 
 					}
 				});
-				m.start();
+				if (lastEXFuture != null && !lastEXFuture.isDone()){
+					lastEXFuture.cancel(true);
+				}
+				lastEXFuture = pbCheckPool.submit(pbCheckThread);
 			}
 
 		} else if (aboutToPlay.getDLType().equals(OAConstants.DL_TYPE_TORRENT)) {
@@ -174,9 +182,13 @@ public class FileManager {
 	}
 
 	public static void queueForDownload(ISinglePlayable playable) {
-		// TODO Auto-generated method stub
 		if (playable.canVLCPlayDirect()) {
 			// no - op
+		} else if (playable.getDLType().equals(OAConstants.DL_TYPE_SIMPLE_URL)){
+			
+			//queue download, if called in play, make sure we grabb it
+		} else if (playable.getDLType().equals(OAConstants.DL_TYPE_TORRENT)){
+			//start the torrent
 		}
 	}
 

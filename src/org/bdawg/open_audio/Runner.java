@@ -101,7 +101,7 @@ public class Runner {
 
 			@Override
 			public void run() {
-				if (sm.getCurrentItem().getMasterId()
+				if (sm.getCurrentItem()!= null && sm.getCurrentItem().getMasterId()
 						.equals(Runner.myMacAddress)) {
 					mm.singlePlayableCallback();
 				}
@@ -127,6 +127,18 @@ public class Runner {
 						&& sm.getCurrentItem().getMasterId()
 								.equals(Runner.myMacAddress)) {
 					mm.broadcastProgress(sm.getCurrentProgress());
+				}
+			}
+		});
+		
+		sm.setProgressRunnable(30, new Runnable() {
+			
+			@Override
+			public void run() {
+				if (sm.getCurrentItem() != null
+						&& sm.getCurrentItem().getMasterId()
+								.equals(Runner.myMacAddress)) {
+					mm.pushProgressToServer(sm.getCurrentProgress());
 				}
 			}
 		});
