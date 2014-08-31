@@ -12,6 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.log4j.Logger;
 import org.bdawg.open_audio.PropertyManager;
 import org.bdawg.open_audio.PropertyManager.PropertyKey;
+import org.bdawg.open_audio.Utils.OAConstants;
 import org.bdawg.open_audio.interfaces.ISimpleMQCallback;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -162,7 +163,7 @@ public class MQTTManager implements MqttCallback {
 				.format("%s://%s:%d", PropertyManager.getStringForKey(
 						PropertyKey.MQTT_SCHEME, "tcp"), PropertyManager
 						.getStringForKey(PropertyKey.MQTT_HOST,
-								"home.bdawg.org"), PropertyManager
+								OAConstants.WS_HOST), PropertyManager
 						.getIntForKey(PropertyKey.MQTT_PORT, 1883));
 		log.trace("Make uri is returning " + toReturn);
 		return toReturn;
