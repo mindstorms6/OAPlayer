@@ -192,12 +192,12 @@ public class SlaveManager implements ISimpleMQCallback {
 
 			@Override
 			public void run() {
-				HBResponse r = actualDoHB(markStartup);
-				if (r != null){
-					TimeManager.getTMInstance().setManualOffset(r.getManualOffset());
+				HBResponse response = actualDoHB(markStartup);
+				if (response != null){
+					TimeManager.getTMInstance().setManualOffset(response.getManualOffset());
 				}
-				if (r != null
-						&& !r.getOwner().equals(
+				if (response != null
+						&& !response.getOwner().equals(
 								Utils.OAConstants.NOT_OWNED_STRING)) {
 					SlaveManager.this.player.setOverlay("");
 					
@@ -206,8 +206,7 @@ public class SlaveManager implements ISimpleMQCallback {
 						SlaveManager.this.player.setOverlay(Utils
 								.getMacAddresses());
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						logger.error("Failed to set overlay with MAC address", e);
 					}
 				}
 

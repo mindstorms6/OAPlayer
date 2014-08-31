@@ -98,7 +98,7 @@ public class TimeManager {
 		scheduler = Executors.newScheduledThreadPool(5);
 		ntpHandle = scheduler.scheduleAtFixedRate(updateNTP, delaySeconds,
 				periodSeconds, TimeUnit.SECONDS);
-		hostAddr = InetAddress.getByName("0.pool.ntp.org");
+		hostAddr = InetAddress.getByName("pool.ntp.org");
 
 	}
 

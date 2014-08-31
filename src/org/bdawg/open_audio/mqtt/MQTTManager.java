@@ -48,7 +48,7 @@ public class MQTTManager implements MqttCallback {
 	}
 
 	private void reconstructClient() {
-		log.debug("reconstruct client called");
+		log.debug("Reconstruct client called");
 		if (client == null) {
 			log.debug("Client is null, making a new one");
 			setupThread = new Thread(new Runnable() {
@@ -62,7 +62,7 @@ public class MQTTManager implements MqttCallback {
 							log.debug("Did setup, breaking out of setup thread");
 							break;
 						} else {
-							log.debug("Failed to setup.");
+							log.warn("Failed to setup.");
 							try {
 								log.debug("Sleeping for a bit.");
 								Thread.sleep(10000);
@@ -78,7 +78,7 @@ public class MQTTManager implements MqttCallback {
 			log.debug("Starting setup thread");
 			setupThread.start();
 		} else {
-			log.debug("not reconstructiong, client was not null");
+			log.debug("Not reconstructiong, client was not null");
 		}
 	}
 
@@ -93,14 +93,14 @@ public class MQTTManager implements MqttCallback {
 			log.debug("Setup client called when client was not null");
 			return true;
 		} else {
-			log.debug("Setting up new clietn");
+			log.debug("Setting up new client");
 			try {
 
 				MqttDefaultFilePersistence perst = new MqttDefaultFilePersistence(
 						"/tmp");
 				this.client = new MqttClient(makeURI(),
 						MQ_ID, perst);
-				log.debug("New client declared. Setting cb to this");
+				log.debug("New client declared. Setting callback to self.");
 				this.client.setCallback(this);
 				log.debug("New instance of client declared. Attemtpign connect");
 				this.client.connect();
@@ -118,7 +118,7 @@ public class MQTTManager implements MqttCallback {
 					log.debug("Subbing to (setupClient) " + topic);
 					this.client.subscribe(topic);
 				}
-				log.debug("All resubs done. Returing");
+				log.debug("All resubscriptions done. Returning");
 				return true;
 			} catch (MqttException mex) {
 				this.client = null;
@@ -134,14 +134,14 @@ public class MQTTManager implements MqttCallback {
 				while (true) {
 					MQTTFullMessage toSend = null;
 					try {
-						//log.debug("Send message thread is about to wait on client");
+						log.trace("Send message thread is about to wait on client");
 						waitClient();
-						//log.debug("Send message thread is waiting on blocking queue");
+						log.trace("Send message thread is waiting on blocking queue");
 						toSend = messageToSendQ.take();
-						//log.debug("Got a message to send");
+						log.trace("Got a message to send");
 						MQTTManager.this.client.publish(toSend.topic,
 								toSend.message);
-						//log.debug("Message away!");
+						log.trace("Message away!");
 					} catch (InterruptedException iex) {
 						log.error("Interruped.", iex);
 						Thread.interrupted();
@@ -164,7 +164,7 @@ public class MQTTManager implements MqttCallback {
 						.getStringForKey(PropertyKey.MQTT_HOST,
 								"home.bdawg.org"), PropertyManager
 						.getIntForKey(PropertyKey.MQTT_PORT, 1883));
-		//log.debug("Make uri is returning " + toReturn);
+		log.trace("Make uri is returning " + toReturn);
 		return toReturn;
 	}
 
@@ -210,27 +210,27 @@ public class MQTTManager implements MqttCallback {
 	 * @return if the message was queued to be sent
 	 */
 	public synchronized boolean sendMessage(ByteBuffer bb, String topic) {
-		//log.debug("Queing a message!");
+		log.trace("Queing a message!");
 		MqttMessage m = new MqttMessage(bb.array());
 		return messageToSendQ.offer(new MQTTFullMessage(topic, m));
 	}
 
 	private void waitClient() throws InterruptedException {
-		//log.debug("Wait client called");
+		log.trace("Wait client called");
 		if (this.client == null) {
-			//log.debug("Waiting since client was null");
+			log.trace("Waiting since client was null");
 			synchronized (clientWatcher) {
 				this.clientWatcher.wait();
-				log.debug("And done waiting");
+				log.trace("And done waiting");
 			}
 		} else {
-			//log.debug("Not waiting since client was not null");
+			log.trace("Not waiting since client was not null");
 		}
 	}
 
 	@Override
 	public void connectionLost(Throwable cause) {
-		log.debug("ERRMERGAHD Conn lost!");
+		log.warn("ERRMERGAHD Conn lost!");
 		this.client = null;
 		reconstructClient();
 	}
@@ -238,7 +238,7 @@ public class MQTTManager implements MqttCallback {
 	@Override
 	public void messageArrived(final String topic, final MqttMessage message)
 			throws Exception {
-		//log.debug("Got a messsage!");
+		log.trace("Got a messsage!");
 		final ByteBuffer bb = ByteBuffer.wrap(message.getPayload());
 		List<ISimpleMQCallback> externalCallbacks = callbackMap.get(topic);
 		if (externalCallbacks != null) {
@@ -256,7 +256,7 @@ public class MQTTManager implements MqttCallback {
 				t.start();
 			}
 		} else {
-			log.debug("Didn't have an external cb for topic " + topic);
+			log.debug("Didn't have an external callback for topic " + topic);
 		}
 	}
 
